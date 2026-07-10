@@ -330,7 +330,7 @@ a { color: inherit; text-decoration: none; }
   .hero-content {
     order: 2;
     padding: 0;
-    margin-top: -56px;
+    margin-top: -32px;
     position: relative;
     z-index: 2;
     align-items: center;
@@ -702,17 +702,25 @@ a { color: inherit; text-decoration: none; }
   .grid-2-prof { gap: 48px; }
   
   .prof-card {
-    flex-direction: column;
+    flex-direction: column !important;
     text-align: center;
-    gap: 24px;
+    gap: 28px;
+    align-items: center;
+  }
+  
+  .prof-photo {
+    max-width: 240px;
+    margin: 0 auto;
   }
   
   .prof-info {
     align-items: center;
+    width: 100%;
   }
   
   .prof-card ul {
     text-align: left;
+    max-width: 400px;
   }
 }
 
@@ -1342,7 +1350,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .urgency-text .highlight-gold {
-  color: #8C621D;
+  color: #D4A94E;
 }
 
 /* === HEADER (Floating Pill) === */
@@ -1982,6 +1990,8 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* === GLOBAL RESPONSIVE === */
+
+/* ── Tablet (max 860px) ── */
 @media (max-width: 860px) {
   .section {
     padding: 60px 20px;
@@ -1995,12 +2005,367 @@ a { color: inherit; text-decoration: none; }
   .cta-center button {
     width: 100%;
   }
+
+  /* Hero — stack columns */
+  .hero-title {
+    font-size: clamp(24px, 6vw, 36px);
+  }
+  .hero-subtitle {
+    max-width: 100%;
+    font-size: 15px;
+  }
+  .hero-badges {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+  .hero-info-item {
+    font-size: 13px;
+  }
+
+  /* Professor cards — column layout */
+  .prof-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 28px;
+  }
+  .prof-photo {
+    max-width: 220px;
+    margin: 0 auto;
+  }
+  .prof-info {
+    align-items: center;
+  }
+  .prof-card h3 {
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+  .prof-card ul {
+    text-align: left;
+    max-width: 380px;
+  }
+  .prof-card li {
+    font-size: 14px;
+  }
+
+  /* Turma date — smaller on tablet */
+  .turma-date {
+    font-size: 24px;
+  }
+
+  /* Diagnosis — reduce padding */
+  .diagnosis-box {
+    padding: 32px 24px;
+  }
+
+  /* Learning rows */
+  .learning-row {
+    padding: 22px;
+  }
+
+  /* Urgency text */
+  .urgency-text p {
+    font-size: 16px;
+  }
 }
 
+/* ── Mobile (max 600px) ── */
 @media (max-width: 600px) {
-  .section { padding: 48px 16px; }
+  .section { padding: 44px 16px; }
   .wrap, .wrap-narrow { padding: 0 16px; }
-  .modal { padding: 28px 20px; }
+
+  /* Typography tighten */
+  .head { margin-bottom: 28px; }
+  .title {
+    font-size: clamp(20px, 6vw, 26px);
+    line-height: 1.25;
+  }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+  }
+
+  /* Hero fine-tune */
+  .hero-section {
+    padding: 68px 0 32px;
+  }
+  .hero-grid {
+    padding: 0 16px 32px;
+  }
+  .hero-content {
+    margin-top: -40px;
+  }
+  .hero-title {
+    font-size: clamp(22px, 7vw, 30px);
+    margin-bottom: 16px;
+  }
+  .hero-subtitle {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .hero-badges {
+    margin-bottom: 24px;
+  }
+  .hero-cta {
+    margin-bottom: 20px;
+  }
+  .hero-cta button,
+  .hero-cta .btn-primary {
+    width: 100%;
+    font-size: 15px;
+    padding: 14px 24px;
+  }
+
+  /* Countdown pill in hero */
+  .hero-countdown-pill {
+    flex-direction: column;
+    padding: 16px 24px;
+    gap: 10px;
+    width: 100%;
+  }
+  .hero-countdown-pill .cd-label {
+    font-size: 11px;
+  }
+  .hero-countdown-pill .countdown {
+    gap: 12px;
+  }
+
+  /* Cards */
+  .card {
+    padding: 22px;
+  }
+  .card h3 {
+    font-size: 15px;
+  }
+  .card p {
+    font-size: 13px;
+  }
+
+  /* Feature icons */
+  .feature-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    margin-bottom: 14px;
+  }
+
+  /* Professor */
+  .grid-2-prof {
+    gap: 40px;
+  }
+  .prof-photo {
+    max-width: 180px;
+    border-radius: 18px;
+  }
+  .prof-card h3 {
+    font-size: 20px;
+    margin-bottom: 14px;
+  }
+  .prof-label {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+  }
+  .prof-card li {
+    font-size: 13px;
+    line-height: 1.5;
+    padding-left: 20px;
+    gap: 10px;
+  }
+  .prof-card li::before {
+    font-size: 12px;
+  }
+
+  /* Syllabus timeline */
+  .timeline-content {
+    padding: 18px 20px;
+  }
+  .timeline-content h4 {
+    font-size: 12px;
+  }
+  .timeline-content p {
+    font-size: 14px;
+  }
+  .timeline-marker {
+    width: 20px;
+    height: 20px;
+    border-width: 3px;
+  }
+  .timeline-item::before {
+    left: 9px;
+  }
+
+  /* Turma cards (Próximas Turmas) */
+  .turma-card {
+    padding: 20px 16px;
+  }
+  .turma-name {
+    font-size: 13px;
+  }
+  .turma-date {
+    font-size: 22px;
+  }
+  .turma-type {
+    font-size: 12px;
+    margin-bottom: 14px;
+  }
+  .cd-unit .n {
+    font-size: 18px;
+  }
+  .cd-unit .l {
+    font-size: 10px;
+  }
+  .turma-card .cd-label {
+    font-size: 10px;
+  }
+
+  /* Timeline (Urgência) */
+  .tl-card {
+    padding: 18px 16px;
+  }
+  .tl-year {
+    font-size: 17px;
+  }
+  .tl-desc {
+    font-size: 13px;
+  }
+  .tl-dot {
+    width: 12px;
+    height: 12px;
+    border-width: 2px;
+  }
+
+  /* Diagnosis boxes */
+  .diagnosis-box {
+    padding: 24px 20px;
+    border-radius: 18px;
+  }
+  .lead-text {
+    font-size: 16px;
+  }
+  .questions-title {
+    font-size: 15px;
+  }
+
+  /* Immersive cards (Problema) */
+  .immersive-card {
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+  .immersive-card h3 {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  .immersive-card p {
+    font-size: 13px;
+  }
+
+  /* Learning rows */
+  .learning-row {
+    padding: 20px 16px;
+    gap: 14px;
+    border-radius: 14px;
+  }
+  .learning-number {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 10px;
+  }
+
+  /* Proposta */
+  .proposta-text {
+    font-size: 15px;
+  }
+
+  /* Urgency */
+  .urgency-text p {
+    font-size: 15px;
+  }
+
+  /* Buttons */
+  .btn, .btn-primary {
+    font-size: 15px;
+    padding: 14px 24px;
+  }
+  .btn-compact {
+    font-size: 13px;
+    padding: 9px 16px;
+  }
+
+  /* Modal */
+  .modal {
+    padding: 28px 20px;
+    border-radius: 18px;
+  }
+  .modal h3 {
+    font-size: 19px;
+  }
+  .field input,
+  .field select {
+    padding: 14px;
+    font-size: 14px;
+  }
+
+  /* Footer */
+  .footer-main {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding: 48px 20px 36px;
+  }
+  .footer-services-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .footer-bottom {
+    padding: 20px 16px;
+    font-size: 12px;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+
+  /* CTA full-width */
+  .cta-center {
+    margin-top: 28px;
+  }
+  .cta-center .btn-primary,
+  .cta-center button {
+    width: 100%;
+    font-size: 15px;
+  }
+}
+
+/* ── Small phones (max 380px) ── */
+@media (max-width: 380px) {
+  .hero-title {
+    font-size: 20px;
+  }
+  .hero-subtitle {
+    font-size: 13px;
+  }
+  .hero-section {
+    padding-top: 62px;
+  }
+  .site-header {
+    height: 52px;
+  }
+  .nav-logo img {
+    height: 32px;
+  }
+  .btn-header {
+    font-size: 12px;
+    padding: 8px 14px;
+  }
+  .turma-date {
+    font-size: 20px;
+  }
+  .cd-unit .n {
+    font-size: 16px;
+  }
+  .prof-photo {
+    max-width: 150px;
+  }
 }
 
 /* === UTILITIES === */
