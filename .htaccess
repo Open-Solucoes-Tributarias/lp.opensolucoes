@@ -1,0 +1,22 @@
+RewriteEngine On
+RewriteBase /
+
+# 1. Redirecionamento 301 de URLs legadas (da raiz para a nova estrutura)
+RewriteRule ^curso-antigo\.html$ /curso/reforma-tributaria [R=301,L]
+RewriteRule ^curso-final\.html$ /curso/reforma-tributaria [R=301,L]
+
+# 2. Forçar HTTPS (Opcional, mas boa prática)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# 3. Remover extensão .html das URLs (Clean URLs)
+# Se o request não é um diretório
+RewriteCond %{REQUEST_FILENAME} !-d
+# E o arquivo com extensão .html existe
+RewriteCond %{REQUEST_FILENAME}\.html -f
+# Sirva o arquivo .html mas mantenha a URL limpa
+RewriteRule ^(.*)$ $1.html [L]
+
+# 4. Redirecionar acessos diretos com .html para a versão limpa (Evitar conteúdo duplicado no SEO)
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^\ ]+)\.html
+RewriteRule ^/?(.*)\.html$ /$1 [L,R=301]
