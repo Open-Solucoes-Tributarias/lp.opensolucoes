@@ -16,28 +16,33 @@ A arquitetura do projeto foi desenhada para ser simples, extremamente rápida de
 
 ### 📁 Estrutura de Diretórios
 
-As páginas devem ser organizadas em subdiretórios auto-contidos dentro da pasta raiz para manter a modularidade:
+Cada landing page deve ser organizada em sua **própria subpasta auto-contida**, sempre com `index.html` como arquivo principal. Isso garante URLs limpas e enxutas (ex: `/congresso`) sem barras finais desnecessárias e sem expor extensões de arquivo.
 
 ```text
 lp.opensolucoes/
-├── .htaccess             # Configurações do servidor (URLs limpas, cache e redirecionamentos)
-├── README.md             # Este arquivo de documentação
-├── .gitignore            # Arquivos ignorados pelo Git
-└── curso/                # Categoria ou agrupador de páginas
-    ├── [nome-da-lp]/     # Pasta específica de uma landing page (ex: cursos, curso-antigo)
-    │   ├── index.html    # Código-fonte principal da página (sempre index.html)
-    │   └── assets/       # Assets exclusivos desta página (imagens, ícones, etc.)
-    │       ├── logo-open-rto.webp
-    │       └── hero-curso-rto.webp
+├── .htaccess                  # Configurações do servidor (URLs limpas, cache e redirecionamentos)
+├── README.md                  # Este arquivo de documentação
+├── .gitignore                 # Arquivos ignorados pelo Git
+├── congresso/                 # → pagina.opensolucoestributarias.com.br/congresso
+│   ├── index.html             # Código-fonte principal da página (SEMPRE index.html)
+│   └── assets/                # Assets exclusivos desta página (imagens, CSS, ícones, etc.)
+│       ├── logo.svg
+│       └── hero.webp
+└── curso/                     # Agrupador de páginas de cursos
+    └── [nome-da-lp]/          # → pagina.opensolucoestributarias.com.br/curso/nome-da-lp
+        ├── index.html
+        └── assets/
 ```
-*Observação sobre URLs sem barra final: se a estrutura exigir uma página no nível superior da categoria (ex: `/curso/reforma-tributaria`), o HTML será um arquivo avulso (`curso/reforma-tributaria.html`) e seus assets viverão em uma pasta homônima (`curso/reforma-tributaria_assets/`).*
+
+> [!IMPORTANT]
+> **Convenção obrigatória:** Toda nova landing page deve seguir o padrão `[categoria]/[nome]/index.html` + `[categoria]/[nome]/assets/`. **Nunca** criar arquivos `.html` avulsos nem pastas `_assets` com sufixo. Isso garante URLs limpas, portabilidade total e consistência no projeto.
 
 ---
 
 ## 🖼️ Gerenciamento de Assets (Imagens, CSS e JS)
 
-*   **Arquitetura Auto-contida (Colocação):** Todos os assets específicos de uma página devem ficar em sua pasta local `_assets/` associada à página ou `assets/` se for um diretório.
-*   **Caminhos Relativos:** Dentro do arquivo HTML, todas as referências a esses assets **devem ser caminhos relativos** (ex: `src="reforma-tributaria_assets/hero-curso-rto.webp"`). 
+*   **Arquitetura Auto-contida (Colocação):** Todos os assets específicos de uma página devem ficar em `assets/` dentro da própria pasta da página (ex: `congresso/assets/logo.svg`).
+*   **Caminhos Relativos:** Dentro do arquivo HTML, todas as referências a esses assets **devem ser caminhos relativos** (ex: `src="assets/hero.webp"`). 
     *   *Por que?* Isso torna a página 100% portátil. Ela pode ser movida, duplicada ou renomeada sem quebrar nenhum link de imagem ou recurso.
 *   **Otimização de Imagens:** Sempre prefira formatos modernos como `.webp` ou `.svg`. Imagens grandes de fundo devem ser comprimidas e usar `loading="lazy"` (exceto acima da dobra, onde deve ser usado `fetchpriority="high"` ou pré-carregamento).
 
@@ -59,9 +64,9 @@ O subdomínio em produção é hospedado na Hostinger (servidor Apache/LiteSpeed
 Ao criar ou editar qualquer página neste repositório, certifique-se de seguir estes padrões:
 
 ### HTML Semântico e SEO:
-*   **URLs Amigáveis (Slugs SEO) e Barra Final (`/`):**
+*   **URLs Amigáveis (Slugs SEO):**
     *   **Use nomes descritivos com hífens:** IAs e desenvolvedores devem sempre indicar nomes descritivos para os caminhos. Evite barras em datas ou nomes compostos que gerem subpastas profundas (ex: em vez de `curso/reforma-tributaria/07/05/2026`, use `curso/reforma-tributaria-07-05-2026`). Isso é muito melhor para SEO.
-    *   **Remover a Barra Final (`/`):** Se o design exigir que a URL **não termine** com barra (ex: `/curso/cursos` em vez de `/curso/cursos/`), a página deve ser criada como um arquivo HTML avulso (ex: `curso/cursos.html`) ao invés de uma pasta com `index.html`. O `.htaccess` servirá o arquivo omitindo o `.html` sem adicionar a barra final. Os assets correspondentes devem ficar em uma pasta de nome correspondente (ex: `curso/cursos_assets/`).
+    *   **URLs limpas sem extensão:** O Apache resolve automaticamente `[pasta]/index.html` como `[url]/[pasta]`. Não é necessário nenhuma regra especial no `.htaccess` — basta seguir o padrão de pastas com `index.html`.
 *   Use apenas um único elemento `<h1>` por página (geralmente no título principal da dobra de destaque).
 *   Use tags estruturais do HTML5 (`<header>`, `<main>`, `<section>`, `<footer>`).
 *   Configure os metadados de SEO essenciais no `<head>`:

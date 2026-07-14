@@ -1,7 +1,11 @@
 RewriteEngine On
 RewriteBase /
 
-# 1. Redirecionamento 301 de URLs legadas (da raiz para a nova estrutura)
+# 1. Remover barra final de URLs (trailing slash) → /congresso/ vira /congresso
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)/$ /$1 [R=301,L]
+
+# 2. Redirecionamento 301 de URLs legadas (da raiz para a nova estrutura)
 RewriteRule ^curso-antigo\.html$ /curso/reforma-tributaria [R=301,L]
 RewriteRule ^curso-final\.html$ /curso/reforma-tributaria [R=301,L]
 
