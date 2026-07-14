@@ -36,6 +36,8 @@ lp.opensolucoes/
 
 > [!IMPORTANT]
 > **Convenção obrigatória:** Toda nova landing page deve seguir o padrão `[categoria]/[nome]/index.html` + `[categoria]/[nome]/assets/`. **Nunca** criar arquivos `.html` avulsos nem pastas `_assets` com sufixo. Isso garante URLs limpas, portabilidade total e consistência no projeto.
+>
+> **`<base href>` obrigatório:** Como as URLs são servidas sem barra final (ex: `/congresso`), o browser não sabe que o diretório base é `/congresso/` — e os caminhos relativos quebrariam. Por isso, **toda página deve ter a tag `<base href>` logo após o `<meta charset>`**, apontando para o caminho absoluto da pasta da página (com barra final).
 
 ---
 
@@ -69,12 +71,16 @@ Ao criar ou editar qualquer página neste repositório, certifique-se de seguir 
     *   **URLs limpas sem extensão:** O Apache resolve automaticamente `[pasta]/index.html` como `[url]/[pasta]`. Não é necessário nenhuma regra especial no `.htaccess` — basta seguir o padrão de pastas com `index.html`.
 *   Use apenas um único elemento `<h1>` por página (geralmente no título principal da dobra de destaque).
 *   Use tags estruturais do HTML5 (`<header>`, `<main>`, `<section>`, `<footer>`).
-*   Configure os metadados de SEO essenciais no `<head>`:
+*   Configure os metadados de SEO essenciais no `<head>` **nesta ordem**:
     ```html
+    <meta charset="UTF-8">
+    <base href="/categoria/nome-da-pagina/">  <!-- OBRIGATÓRIO: resolve assets relativos corretamente -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Título curto e chamativo com a palavra-chave</title>
     <meta name="description" content="Descrição chamativa de até 160 caracteres.">
-    <link rel="canonical" href="https://pagina.opensolucoestributarias.com.br/curso/cursos">
+    <link rel="canonical" href="https://pagina.opensolucoestributarias.com.br/categoria/nome-da-pagina">
     ```
+    > ⚠️ O `<base href>` deve vir **antes de qualquer link, script ou src** para garantir que todos os caminhos relativos sejam resolvidos corretamente.
 *   Sempre forneça a propriedade `alt` descritiva para imagens.
 
 ### Performance e Acessibilidade:
