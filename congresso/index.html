@@ -78,7 +78,7 @@
           <img src="assets/palestrantes.jpg" alt="Palestrantes do Congresso GTAP" class="hero-img">
           
           <!-- HERO COUNTDOWN -->
-          <div class="hero-countdown-pill hero-countdown-absolute" data-reveal>
+          <div class="hero-countdown-pill hero-countdown-absolute">
             <div class="cd-label">FALTAM APENAS</div>
             <div class="countdown" data-target="2026-10-08T08:00:00">
               <div class="cd-unit"><span class="n days">00</span><span class="l">DIAS</span></div><span class="cd-sep">:</span>
@@ -271,38 +271,38 @@
           <p class="sub sub-white">Benefícios tangíveis desenhados para gerar retorno imediato na sua gestão tributária.</p>
         </div>
         
-        <div class="beneficios-grid" data-reveal>
+        <div class="beneficios-grid">
           
           <!-- Card 1 -->
-          <div class="card bento-card-dark bento-span-2">
+          <div class="card bento-card-dark bento-span-2" data-reveal>
             <div class="bento-icon">✓</div>
             <h3>Mapeamento das Soluções</h3>
             <p>Saiba quais ferramentas do mercado realmente resolvem o problema e como implementar de forma ágil e segura em sua organização.</p>
           </div>
 
           <!-- Card 2 -->
-          <div class="card bento-card-dark bento-span-2">
+          <div class="card bento-card-dark bento-span-2" data-reveal>
             <div class="bento-icon">✓</div>
             <h3>Acesso Direto às Fontes</h3>
             <p>Oportunidade única de esclarecer as incertezas sobre a transição com as autoridades da Secretaria Extraordinária.</p>
           </div>
 
           <!-- Card 3 -->
-          <div class="card bento-card-dark bento-span-2">
+          <div class="card bento-card-dark bento-span-2" data-reveal>
             <div class="bento-icon">✓</div>
             <h3>Networking Focado e Direcionado</h3>
             <p>Fique imerso por três dias, num dos melhores locais do Brasil, com profissionais do mesmo nível e com as mesmas dores que você.</p>
           </div>
 
           <!-- Card 4 -->
-          <div class="card bento-card-dark bento-span-3">
+          <div class="card bento-card-dark bento-span-3" data-reveal>
             <div class="bento-icon">✓</div>
             <h3>Redução de Custos e Multas</h3>
             <p>Compreenda os novos paradigmas do contencioso para evitar armadilhas, bitributação temporária e infrações por não conformidade tecnológica.</p>
           </div>
 
           <!-- Card 5 -->
-          <div class="card bento-card-dark bento-span-3">
+          <div class="card bento-card-dark bento-span-3" data-reveal>
             <div class="bento-icon">✓</div>
             <h3>Plano de Ação para a Diretoria</h3>
             <p>Saia do evento com base e dados concretos para montar um plano de transição de sistemas crível para o board da empresa.</p>
@@ -561,13 +561,11 @@
         </div>
 
 
+        <div class="section-cta-wrapper" data-reveal>
+          <a href="#inscricao" class="btn-primary section-cta">Garantir Minha Vaga →</a>
+        </div>
       </div>
     </section>
-
-    <div class="section-cta-wrapper" data-reveal>
-      <a href="#inscricao" class="btn-primary section-cta">Garantir Minha Vaga →</a>
-    </div>
-
 
     <!-- === IDEALIZADOR === -->
     <section class="section idealizador-figma-section theme-dark">
@@ -661,67 +659,114 @@
   </main>
 
   <!-- === FOOTER === -->
-  <footer class="footer site-footer" style="background-color: #02093A;">
-    <div class="wrap">
-      <div class="footer-main">
-        <div class="footer-brand-col">
-          <img src="assets/logo-gtap-x.png" alt="Logo GTAP" class="footer-logo">
-          <p class="footer-desc">
-            A principal comunidade de inteligência tributária do país. Onde estratégia, tecnologia e compliance se encontram.
-          </p>
+  <footer class="site-footer">
+    <div class="footer-main">
+
+      <!-- Col 1: Brand & Contact -->
+      <div class="footer-brand-col">
+        <a href="https://opensolucoestributarias.com.br" class="footer-logo" target="_blank" rel="noopener">
+          <img src="assets/logo.svg" alt="Open Soluções Tributárias" height="52">
+        </a>
+        <p class="footer-slogan">O Ecossistema da Gestão Tributária.</p>
+
+        <div>
+          <p class="footer-contact-title">Contato</p>
           <ul class="footer-contact-list">
             <li>
-              <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-              <a href="mailto:contato@gtap.com.br">contato@gtap.com.br</a>
+              <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              <a href="tel:08008881482">0800 888 14 82</a>
             </li>
             <li>
-              <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-              <a href="tel:+5511999999999">(11) 99999-9999</a>
+              <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+              <a href="https://wa.me/5571992084907" target="_blank" rel="noopener">+55 (071) 99208-4907</a>
+            </li>
+            <li>
+              <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,7 12,13 2,7"/></svg>
+              <a href="mailto:contato@opensolucoestributarias.com.br">contato@opensolucoestributarias.com.br</a>
             </li>
           </ul>
-          <div class="footer-legal">
-            &copy; 2026 GTAP. Todos os direitos reservados.<br>
-            CNPJ: 00.000.000/0001-00
-          </div>
         </div>
-        
-        <div class="footer-services-col">
-          <div class="footer-col-heading">Institucional</div>
-          <div class="footer-services-grid">
-            <div class="footer-service-group">
-              <ul>
-                <li><a href="#por-que-ir">O Evento</a></li>
-                <li><a href="#palestrantes">Palestrantes</a></li>
-                <li><a href="#temas">Grade Curricular</a></li>
-                <li><a href="#inscricao">Inscrição</a></li>
-              </ul>
-            </div>
-            <div class="footer-service-group">
-              <ul>
-                <li><a href="#">Termos de Uso</a></li>
-                <li><a href="#">Política de Privacidade</a></li>
-                <li><a href="#">Contato</a></li>
-              </ul>
-            </div>
-          </div>
+
+        <div class="footer-legal">
+          Open Soluções Tributárias LTDA: 09.094.300/0001-51<br>
+          R. Frederico Simões, 125, Edf. Liz Empresarial<br>
+          Caminho das Árvores · Salvador/ BA
         </div>
-        
-        <div class="footer-also-col">
-          <div class="footer-col-heading">Redes Sociais</div>
-          <div class="footer-also-group">
-            <p>Acompanhe nossos conteúdos, atualizações diárias sobre a Reforma Tributária e bastidores do GTAP.</p>
+      </div>
+
+      <!-- Col 2: Services -->
+      <div class="footer-services-col">
+        <h3 class="footer-col-heading">Nossas 4 frentes de atuação:</h3>
+        <div class="footer-services-grid">
+          <div class="footer-service-group">
+            <h4><a href="https://opentreinamentos.com.br" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">Treinamentos</a></h4>
+            <ul>
+              <li><a href="https://opentreinamentos.com.br" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">Presencial</a></li>
+              <li><a href="https://opentreinamentos.com.br" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">Online</a></li>
+              <li><a href="https://opentreinamentos.com.br/treinamentos-in-company/" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">In Company</a></li>
+            </ul>
           </div>
-          <div class="footer-social">
-            <a href="#" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
-            <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
-            <a href="#" aria-label="YouTube"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg></a>
+          <div class="footer-service-group">
+            <h4><a href="https://openconsultoriatributaria.com.br" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">Consultoria</a></h4>
+            <ul>
+              <li><a href="https://openconsultoriatributaria.com.br" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">Recuperação de créditos</a></li>
+              <li><a href="https://openconsultoriatributaria.com.br" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">Redução de tributos</a></li>
+              <li><a href="https://openconsultoriatributaria.com.br" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">Revisão do simples nacional</a></li>
+            </ul>
+          </div>
+          <div class="footer-service-group">
+            <h4><a href="https://www.gestaotributaria.com.br" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">Sistema</a></h4>
+            <ul>
+              <li><a href="https://www.gestaotributaria.com.br/gt-facil" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">GT·Fácil</a></li>
+              <li><a href="https://www.gestaotributaria.com.br/gt-reinf" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">GT·Reinf</a></li>
+              <li><a href="https://www.gestaotributaria.com.br/informacoes-fiscais" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">Informações Fiscais</a></li>
+              <li><a href="https://www.gestaotributaria.com.br/conteudo-selecionado" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">Conteúdo Selecionado</a></li>
+            </ul>
+          </div>
+          <div class="footer-service-group">
+            <h4><a href="https://opentreinamentos.com.br/livros/" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">Editora</a></h4>
+            <ul>
+              <li><a href="https://opentreinamentos.com.br/livros/livro-gestao-tributaria-de-contratos-e-convenios-10a-edicao/" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">Gestão Tributária de Contratos e Convênios (10ª edição)</a></li>
+              <li><a href="https://opentreinamentos.com.br/livros/101-perguntas-sobre-retencoes-tributarias/" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">101 Perguntas Sobre Retenções Tributárias</a></li>
+              <li><a href="https://opentreinamentos.com.br/livros/" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">Tributação da Atividade de Saúde</a></li>
+            </ul>
           </div>
         </div>
       </div>
-      
-      <div class="footer-bottom">
-        <div>Desenvolvido com padrão de qualidade e compliance GTAP.</div>
+
+      <!-- Col 3: Also -->
+      <div class="footer-also-col">
+        <h3 class="footer-col-heading">Conheça também:</h3>
+        <div class="footer-also-group">
+          <h4><a href="https://www.gtap.com.br" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">Congressos</a></h4>
+          <p><a href="https://www.gtap.com.br" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">GTAP: Congresso Brasileiro de Gestão Tributária na Administração Pública</a></p>
+        </div>
+        <div class="footer-also-group">
+          <h4><a href="https://focotributario.com.br" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">Blog</a></h4>
+          <p><a href="https://focotributario.com.br" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">Foco Tributário</a></p>
+        </div>
+
+        <div class="footer-social">
+          <a href="https://www.linkedin.com/in/alexandremarques-open/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/foco.tributario/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@FocoTributario" target="_blank" rel="noopener" aria-label="YouTube">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+          <a href="https://web.facebook.com/focotributarioopen/" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+        </div>
       </div>
+
+    </div>
+
+    <!-- Bottom copyright bar -->
+    <div class="footer-bottom">
+      ©2026 Open Soluções Tributárias · Todos os direitos reservados · <a href="#">Termos de uso</a> · <a href="#">Privacidade e cookies</a>
     </div>
   </footer>
 
@@ -883,9 +928,65 @@
       if (e.target === modal) closeModal();
     });
 
-    // Submissão do Formulário (Simulando RD Station)
+    // UTM capture
+    (function() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','utm_placement','placement'].forEach(function(k) {
+          var v = params.get(k);
+          if (v) sessionStorage.setItem('gtap_' + k, v);
+        });
+      } catch(e) {}
+    })();
+
+    // Meta CAPI helpers
+    function getCookie(name) {
+      var match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+      return match ? decodeURIComponent(match[1]) : null;
+    }
+    function ensureFbc() {
+      var existing = getCookie('_fbc');
+      if (existing) return existing;
+      var params = new URLSearchParams(window.location.search);
+      var fbclid = params.get('fbclid');
+      if (!fbclid) return null;
+      var fbc = 'fb.1.' + Date.now() + '.' + fbclid;
+      document.cookie = '_fbc=' + fbc + '; path=/; max-age=7776000';
+      return fbc;
+    }
+    function genUuid() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+
+    // Submissão do Formulário (Integração RD Station & CAPI)
     const form = document.getElementById('rdForm');
     const btnSubmit = document.getElementById('btnSubmit');
+
+    // Máscara de telefone e formatação
+    const phoneInput = document.getElementById('rd-phone');
+    if (phoneInput) {
+      phoneInput.addEventListener('input', function(e) {
+        var v = e.target.value.replace(/\D/g, '');
+        if (v.length > 11) v = v.substring(0, 11);
+        var formatted = v;
+        if (v.length > 2) {
+          formatted = '(' + v.substring(0, 2) + ') ';
+          if (v.length > 6) {
+            if (v.length === 11) {
+              formatted += v.substring(2, 7) + '-' + v.substring(7);
+            } else {
+              formatted += v.substring(2, 6) + '-' + v.substring(6);
+            }
+          } else {
+              formatted += v.substring(2);
+          }
+        }
+        e.target.value = formatted;
+      });
+    }
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -907,8 +1008,15 @@
       });
 
       // Email regex
-      if (email.value && !/^\S+@\S+\.\S+$/.test(email.value)) {
+      if (email.value && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email.value)) {
         email.closest('.field').classList.add('has-error');
+        valid = false;
+      }
+      
+      // Phone length
+      const phoneDigits = phone.value.replace(/\D/g, '');
+      if (phone.value && (phoneDigits.length < 10 || phoneDigits.length > 11)) {
+        phone.closest('.field').classList.add('has-error');
         valid = false;
       }
 
@@ -920,24 +1028,68 @@
       btnSubmit.disabled = true;
 
       // Payload RD Station
-      const payload = {
+      const RD_STATION_TOKEN = 'fde56b5029b7f481d3f10fecb3f1de85';
+      const rdBody = {
+        token_rdstation: RD_STATION_TOKEN,
         identificador: 'x-gtap-2026-landing-page',
-        nome: name.value,
-        email: email.value,
-        telefone: phone.value
+        name: name.value.trim(),
+        email: email.value.trim(),
+        mobile_phone: phone.value.trim(),
+        traffic_source:   sessionStorage.getItem('gtap_utm_source')    || undefined,
+        traffic_medium:   sessionStorage.getItem('gtap_utm_medium')    || undefined,
+        traffic_campaign: sessionStorage.getItem('gtap_utm_campaign')  || undefined,
+        traffic_value:    sessionStorage.getItem('gtap_utm_term')      || undefined,
+        traffic_content:  sessionStorage.getItem('gtap_utm_content')   || undefined,
+        cf_utm_placement: sessionStorage.getItem('gtap_utm_placement') || sessionStorage.getItem('gtap_placement') || undefined
       };
 
-      console.log('Sending to RD Station:', payload);
+      Object.keys(rdBody).forEach(function(k) {
+        if (rdBody[k] === undefined || rdBody[k] === null || rdBody[k] === '') {
+          delete rdBody[k];
+        }
+      });
 
-      // Simular chamada assíncrona
-      setTimeout(() => {
+      // Meta Conversions API
+      const eventId = genUuid();
+      const fbp = getCookie('_fbp');
+      const fbc = ensureFbc();
+
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'Lead', {}, { eventID: eventId });
+      }
+
+      fetch('capi.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          event_name: 'Lead',
+          event_id: eventId,
+          event_source_url: window.location.href,
+          name: rdBody.name,
+          email: rdBody.email,
+          phone: rdBody.mobile_phone,
+          fbp: fbp,
+          fbc: fbc
+        })
+      }).catch(err => console.error('[Meta CAPI] Erro:', err));
+
+      // Disparo RD Station
+      fetch('https://www.rdstation.com.br/api/1.3/conversions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(rdBody)
+      })
+      .then(res => {
+        if (!res.ok) console.error('[RD Station] Erro', res.status);
+      })
+      .catch(err => console.error('[RD Station] Erro de rede:', err))
+      .finally(() => {
         btnSubmit.innerText = originalText;
         btnSubmit.disabled = false;
         
-        // Show success
         document.getElementById('modalFormWrapper').style.display = 'none';
         document.getElementById('modalSuccess').classList.add('show');
-      }, 1500);
+      });
     });
 
     // Limpar erro ao digitar
