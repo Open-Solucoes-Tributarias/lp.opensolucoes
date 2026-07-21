@@ -804,10 +804,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         mins = pad(Math.floor(d/60000)%60);
         secs = pad(Math.floor(d/1000)%60);
       }
-      box.querySelector('[data-cd-days]').textContent = days;
-      box.querySelector('[data-cd-hours]').textContent = hours;
-      box.querySelector('[data-cd-mins]').textContent = mins;
-      box.querySelector('[data-cd-secs]').textContent = secs;
+      var daysEl = box.querySelector('[data-cd-days]');
+      var hoursEl = box.querySelector('[data-cd-hours]');
+      var minsEl = box.querySelector('[data-cd-mins]');
+      var secsEl = box.querySelector('[data-cd-secs]');
+      if (daysEl) daysEl.textContent = days;
+      if (hoursEl) hoursEl.textContent = hours;
+      if (minsEl) minsEl.textContent = mins;
+      if (secsEl) secsEl.textContent = secs;
     });
   }
   tickAll();
@@ -854,18 +858,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   // Capture ALL UTM/tracking params from URL on load
   (function captureUTMs(){
-    var params = new URLSearchParams(window.location.search);
-    var keys = [
-      'utm_source','utm_medium','utm_campaign',
-      'utm_term','utm_content','utm_placement','placement'
-    ];
-    keys.forEach(function(k){
-      var v = params.get(k);
-      if (v) sessionStorage.setItem(k, v);
-    });
+    try {
+      var params = new URLSearchParams(window.location.search);
+      var keys = [
+        'utm_source','utm_medium','utm_campaign',
+        'utm_term','utm_content','utm_placement','placement'
+      ];
+      keys.forEach(function(k){
+        var v = params.get(k);
+        if (v) sessionStorage.setItem(k, v);
+      });
+    } catch (err) {
+      console.warn('[UTM] Não foi possível salvar parâmetros de rastreamento:', err);
+    }
   })();
 
-  function getUTM(k){ return sessionStorage.getItem(k) || ''; }
+  function getUTM(k){
+    try {
+      return sessionStorage.getItem(k) || '';
+    } catch (err) {
+      console.warn('[UTM] Não foi possível ler parâmetro de rastreamento:', k, err);
+      return '';
+    }
+  }
 
   // ── Meta CAPI helpers ──
   function getCookie(name) {
@@ -1011,6 +1026,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         fbp: metaFbp,
         fbc: metaFbc
       })
+    }).then(function(res) {
+      if (!res.ok) console.error('[Meta CAPI] Resposta com erro do servidor:', res.status);
     }).catch(function(err) {
       console.error('[Meta CAPI] Erro de rede ao enviar evento:', err);
     });

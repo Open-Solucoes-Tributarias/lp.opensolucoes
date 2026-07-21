@@ -936,7 +936,9 @@
           var v = params.get(k);
           if (v) sessionStorage.setItem('gtap_' + k, v);
         });
-      } catch(e) {}
+      } catch(e) {
+        console.warn('[UTM] Não foi possível salvar parâmetros de rastreamento:', e);
+      }
     })();
 
     // Meta CAPI helpers
@@ -959,6 +961,14 @@
         var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
       });
+    }
+    function getUTM(key) {
+      try {
+        return sessionStorage.getItem('gtap_' + key) || undefined;
+      } catch (err) {
+        console.warn('[UTM] Não foi possível ler parâmetro de rastreamento:', key, err);
+        return undefined;
+      }
     }
 
     // Submissão do Formulário (Integração RD Station & CAPI)
@@ -1035,12 +1045,12 @@
         name: name.value.trim(),
         email: email.value.trim(),
         mobile_phone: phone.value.trim(),
-        traffic_source:   sessionStorage.getItem('gtap_utm_source')    || undefined,
-        traffic_medium:   sessionStorage.getItem('gtap_utm_medium')    || undefined,
-        traffic_campaign: sessionStorage.getItem('gtap_utm_campaign')  || undefined,
-        traffic_value:    sessionStorage.getItem('gtap_utm_term')      || undefined,
-        traffic_content:  sessionStorage.getItem('gtap_utm_content')   || undefined,
-        cf_utm_placement: sessionStorage.getItem('gtap_utm_placement') || sessionStorage.getItem('gtap_placement') || undefined
+        traffic_source:   getUTM('utm_source'),
+        traffic_medium:   getUTM('utm_medium'),
+        traffic_campaign: getUTM('utm_campaign'),
+        traffic_value:    getUTM('utm_term'),
+        traffic_content:  getUTM('utm_content'),
+        cf_utm_placement: getUTM('utm_placement') || getUTM('placement')
       };
 
       Object.keys(rdBody).forEach(function(k) {
@@ -1071,7 +1081,9 @@
           fbp: fbp,
           fbc: fbc
         })
-      }).catch(err => console.error('[Meta CAPI] Erro:', err));
+      }).then(res => {
+        if (!res.ok) console.error('[Meta CAPI] Resposta com erro do servidor:', res.status);
+      }).catch(err => console.error('[Meta CAPI] Erro de rede:', err));
 
       // Disparo RD Station
       fetch('https://www.rdstation.com.br/api/1.3/conversions', {
