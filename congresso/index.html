@@ -1023,15 +1023,21 @@
         }
       });
 
+      // Name: minimum 3 characters
+      if (name.value.trim().length < 3) {
+        name.closest('.field').classList.add('has-error');
+        valid = false;
+      }
+
       // Email regex
-      if (email.value && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email.value)) {
+      if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email.value.trim())) {
         email.closest('.field').classList.add('has-error');
         valid = false;
       }
       
-      // Phone length
+      // Phone: must have 10-11 digits
       const phoneDigits = phone.value.replace(/\D/g, '');
-      if (phone.value && (phoneDigits.length < 10 || phoneDigits.length > 11)) {
+      if (phoneDigits.length < 10 || phoneDigits.length > 11) {
         phone.closest('.field').classList.add('has-error');
         valid = false;
       }
