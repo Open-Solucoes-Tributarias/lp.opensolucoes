@@ -998,7 +998,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       fbq('track', 'Lead', {}, { eventID: metaEventId });
     }
 
-    fetch('capi.php', {
+    fetch('/capi.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

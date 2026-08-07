@@ -46,8 +46,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </a>
       <span class="nav-brand-divider"></span>
       <a href="#topo" class="nav-logo nav-logo-curso">
-        <img src="assets/logo gtcc clara_1.svg" alt="Gestão Tributária de Contratos e Convênios" height="44" class="logo-curso-clara">
-        <img src="assets/logo gtcc escura_1.svg" alt="Gestão Tributária de Contratos e Convênios" height="44" class="logo-curso-escura">
+        <img src="assets/logo-gtcc-clara.svg" alt="Gestão Tributária de Contratos e Convênios" height="44" class="logo-curso-clara">
+        <img src="assets/logo-gtcc-escura.svg" alt="Gestão Tributária de Contratos e Convênios" height="44" class="logo-curso-escura">
       </a>
     </div>
     <nav class="nav-links" id="navLinks">
@@ -993,7 +993,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       fbq('track', 'Lead', {}, { eventID: metaEventId });
     }
 
-    fetch('capi.php', {
+    fetch('/capi.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
