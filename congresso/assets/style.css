@@ -2005,6 +2005,12 @@ a { color: inherit; text-decoration: none; }
   border-color: var(--color-error);
 }
 
+/* === VÍNCULO SELECT LABEL === */
+#field-vinculo label {
+  line-height: 1.45;
+  margin-bottom: 10px;
+}
+
 .modal-submit {
   width: 100%;
   margin-top: 8px;

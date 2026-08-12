@@ -820,6 +820,17 @@
             <span class="err-msg">O telefone é obrigatório</span>
           </div>
 
+          <div class="field" id="field-vinculo">
+            <label for="rd-vinculo">O GTAP é um evento exclusivo para profissionais de entidades públicas e instituições do Sistema S. Você faz parte de uma delas? *</label>
+            <select id="rd-vinculo" required>
+              <option value="">Selecione uma opção</option>
+              <option value="Sim, faço parte de uma entidade pública">Sim, faço parte de uma entidade pública</option>
+              <option value="Sim, faço parte de uma instituição do Sistema S">Sim, faço parte de uma instituição do Sistema S</option>
+              <option value="Não faço parte de nenhuma delas">Não faço parte de nenhuma delas</option>
+            </select>
+            <span class="err-msg">Selecione uma opção</span>
+          </div>
+
           <button type="submit" class="btn-primary modal-submit" id="btnSubmit">
             Prosseguir com a Inscrição
           </button>
@@ -1017,6 +1028,7 @@
       const name = document.getElementById('rd-name');
       const email = document.getElementById('rd-email');
       const phone = document.getElementById('rd-phone');
+      const vinculo = document.getElementById('rd-vinculo');
 
       [name, email, phone].forEach(input => {
         const field = input.closest('.field');
@@ -1027,6 +1039,14 @@
           field.classList.remove('has-error');
         }
       });
+
+      // Validação do vínculo institucional
+      if (!vinculo.value) {
+        vinculo.closest('.field').classList.add('has-error');
+        valid = false;
+      } else {
+        vinculo.closest('.field').classList.remove('has-error');
+      }
 
       // Name: minimum 3 characters
       if (name.value.trim().length < 3) {
@@ -1062,6 +1082,7 @@
         name: name.value.trim(),
         email: email.value.trim(),
         mobile_phone: phone.value.trim(),
+        cf_vinculo_institucional: vinculo.value || undefined,
         traffic_source:   sessionStorage.getItem('gtap_utm_source')    || undefined,
         traffic_medium:   sessionStorage.getItem('gtap_utm_medium')    || undefined,
         traffic_campaign: sessionStorage.getItem('gtap_utm_campaign')  || undefined,
@@ -1120,10 +1141,15 @@
     });
 
     // Limpar erro ao digitar
-    form.querySelectorAll('input').forEach(input => {
+    form.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"]').forEach(input => {
       input.addEventListener('input', () => {
         input.closest('.field').classList.remove('has-error');
       });
+    });
+
+    // Limpar erro ao selecionar dropdown
+    document.getElementById('rd-vinculo').addEventListener('change', () => {
+      document.getElementById('field-vinculo').classList.remove('has-error');
     });
 
     // --- CAROUSEL LOGIC ---
