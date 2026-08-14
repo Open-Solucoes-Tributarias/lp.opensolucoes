@@ -295,16 +295,59 @@
 
     @media (max-width: 768px) {
       .obrigado-hero {
-        padding-top: 100px;
+        padding-top: 104px;
+        padding-bottom: 48px;
       }
       .site-header .obrigado-step-badge {
         font-size: 11px;
         padding: 4px 10px;
+        white-space: nowrap;
+        gap: 6px;
       }
       .hero-expert-card {
         bottom: 12px;
-        left: 0;
-        right: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: max-content;
+        max-width: calc(100% - 32px);
+      }
+      .obrigado-hero-title {
+        font-size: 1.85rem;
+        line-height: 1.2;
+        margin-bottom: 14px;
+      }
+      .obrigado-hero-subtitle {
+        font-size: 1rem;
+        line-height: 1.55;
+        margin-bottom: 20px;
+      }
+      .obrigado-expectation-card {
+        padding: 16px;
+        gap: 12px;
+        margin: 20px 0;
+        text-align: left;
+      }
+      .expectation-icon {
+        width: 36px;
+        height: 36px;
+      }
+      .expectation-icon svg {
+        width: 18px;
+        height: 18px;
+      }
+      .expectation-content h4 {
+        font-size: 15px;
+      }
+      .expectation-content p {
+        font-size: 13.5px;
+      }
+      .obrigado-badges-flex {
+        justify-content: center;
+        margin-bottom: 24px;
+      }
+      .obrigado-pill-badge {
+        font-size: 13px;
+        padding: 8px 12px;
       }
     }
   </style>
