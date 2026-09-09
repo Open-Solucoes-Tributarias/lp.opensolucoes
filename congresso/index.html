@@ -816,32 +816,52 @@
         <form id="rdForm" novalidate>
           <div class="field" id="field-name">
             <label for="rd-name">Nome completo *</label>
-            <input type="text" id="rd-name" placeholder="Digite seu nome" required>
+            <input type="text" id="rd-name" name="nome" placeholder="Digite seu nome" required>
             <span class="err-msg">O nome é obrigatório</span>
           </div>
 
           <div class="field" id="field-email">
             <label for="rd-email">E-mail corporativo *</label>
-            <input type="email" id="rd-email" placeholder="seu.nome@empresa.com" required>
+            <input type="email" id="rd-email" name="email" placeholder="seu.nome@empresa.com" required>
             <span class="err-msg">Informe um e-mail válido</span>
           </div>
 
           <div class="field" id="field-phone">
             <label for="rd-phone">Telefone / WhatsApp *</label>
-            <input type="tel" id="rd-phone" placeholder="(11) 99999-9999" required>
+            <input type="tel" id="rd-phone" name="telefone" placeholder="(11) 99999-9999" required>
             <span class="err-msg">O telefone é obrigatório</span>
           </div>
 
-          <div class="field" id="field-vinculo">
-            <label for="rd-vinculo">O GTAP é um evento exclusivo para profissionais de entidades públicas e instituições do Sistema S. Você faz parte de uma delas? *</label>
-            <select id="rd-vinculo" required>
+          <div class="field" id="field-setor">
+            <label for="rd-setor">Setor de Trabalho *</label>
+            <select id="rd-setor" name="setor" required>
+              <option value="">Selecione</option>
+              <option>Contabilidade</option>
+              <option>RH</option>
+              <option>Financeiro</option>
+              <option>Contratos e Licitações</option>
+              <option>Outros</option>
+            </select>
+            <span class="err-msg">Selecione seu setor de trabalho</span>
+          </div>
+
+          <div class="field" id="field-instituicao">
+            <label for="rd-instituicao">Instituição</label>
+            <select id="rd-instituicao" name="instituicao" required>
               <option value="">Selecione uma opção</option>
-              <option value="Sim, faço parte de uma entidade pública">Sim, faço parte de uma entidade pública</option>
-              <option value="Sim, faço parte de uma instituição do Sistema S">Sim, faço parte de uma instituição do Sistema S</option>
-              <option value="Não faço parte de nenhuma delas">Não faço parte de nenhuma delas</option>
+              <option value="Instituição/entidade pública">Instituição/entidade pública</option>
+              <option value="Instituição do Sistema S">Instituição do Sistema S</option>
+              <option value="Instituição privada">Instituição privada</option>
             </select>
             <span class="err-msg">Selecione uma opção</span>
           </div>
+
+          <input type="hidden" name="utm_source" id="hidden-utm_source">
+          <input type="hidden" name="utm_medium" id="hidden-utm_medium">
+          <input type="hidden" name="utm_campaign" id="hidden-utm_campaign">
+          <input type="hidden" name="utm_term" id="hidden-utm_term">
+          <input type="hidden" name="utm_content" id="hidden-utm_content">
+          <input type="hidden" name="placement" id="hidden-placement">
 
           <button type="submit" class="btn-primary modal-submit" id="btnSubmit">
             Prosseguir com a Inscrição
@@ -862,6 +882,7 @@
   </div>
 
   <!-- === JAVASCRIPT === -->
+  <script src="/assets/js/lead-form.js"></script>
   <script>
     // Header flutuante e modo escuro
     (function() {
@@ -972,198 +993,16 @@
       if (e.target === modal) closeModal();
     });
 
-    // UTM capture
-    (function() {
-      try {
-        var params = new URLSearchParams(window.location.search);
-        ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','utm_placement','placement'].forEach(function(k) {
-          var v = params.get(k);
-          if (v) sessionStorage.setItem('gtap_' + k, v);
-        });
-      } catch(e) {}
-    })();
-
-    // Meta CAPI helpers
-    function getCookie(name) {
-      var match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
-      return match ? decodeURIComponent(match[1]) : null;
-    }
-    function ensureFbc() {
-      var existing = getCookie('_fbc');
-      if (existing) return existing;
-      var params = new URLSearchParams(window.location.search);
-      var fbclid = params.get('fbclid');
-      if (!fbclid) return null;
-      var fbc = 'fb.1.' + Date.now() + '.' + fbclid;
-      document.cookie = '_fbc=' + fbc + '; path=/; max-age=7776000';
-      return fbc;
-    }
-    function genUuid() {
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-      });
-    }
-
-    // Submissão do Formulário (Integração RD Station & CAPI)
-    const form = document.getElementById('rdForm');
-    const btnSubmit = document.getElementById('btnSubmit');
-
-    // Máscara de telefone e formatação
-    const phoneInput = document.getElementById('rd-phone');
-    if (phoneInput) {
-      phoneInput.addEventListener('input', function(e) {
-        var v = e.target.value.replace(/\D/g, '');
-        if (v.length > 11) v = v.substring(0, 11);
-        var formatted = v;
-        if (v.length > 2) {
-          formatted = '(' + v.substring(0, 2) + ') ';
-          if (v.length > 6) {
-            if (v.length === 11) {
-              formatted += v.substring(2, 7) + '-' + v.substring(7);
-            } else {
-              formatted += v.substring(2, 6) + '-' + v.substring(6);
-            }
-          } else {
-              formatted += v.substring(2);
-          }
-        }
-        e.target.value = formatted;
-      });
-    }
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      // Validação simples
-      let valid = true;
-      const name = document.getElementById('rd-name');
-      const email = document.getElementById('rd-email');
-      const phone = document.getElementById('rd-phone');
-      const vinculo = document.getElementById('rd-vinculo');
-
-      [name, email, phone].forEach(input => {
-        const field = input.closest('.field');
-        if (!input.value.trim()) {
-          field.classList.add('has-error');
-          valid = false;
-        } else {
-          field.classList.remove('has-error');
-        }
-      });
-
-      // Validação do vínculo institucional
-      if (!vinculo.value) {
-        vinculo.closest('.field').classList.add('has-error');
-        valid = false;
-      } else {
-        vinculo.closest('.field').classList.remove('has-error');
-      }
-
-      // Name: minimum 3 characters
-      if (name.value.trim().length < 3) {
-        name.closest('.field').classList.add('has-error');
-        valid = false;
-      }
-
-      // Email regex
-      if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email.value.trim())) {
-        email.closest('.field').classList.add('has-error');
-        valid = false;
-      }
-      
-      // Phone: must have 10-11 digits
-      const phoneDigits = phone.value.replace(/\D/g, '');
-      if (phoneDigits.length < 10 || phoneDigits.length > 11) {
-        phone.closest('.field').classList.add('has-error');
-        valid = false;
-      }
-
-      if (!valid) return;
-
-      // Estado de loading
-      const originalText = btnSubmit.innerText;
-      btnSubmit.innerText = 'Processando...';
-      btnSubmit.disabled = true;
-
-      // Payload RD Station
-      const RD_STATION_TOKEN = 'fde56b5029b7f481d3f10fecb3f1de85';
-      const rdBody = {
-        token_rdstation: RD_STATION_TOKEN,
-        identificador: 'x-gtap-2026-landing-page',
-        name: name.value.trim(),
-        email: email.value.trim(),
-        mobile_phone: phone.value.trim(),
-        cf_vinculo_institucional: vinculo.value || undefined,
-        traffic_source:   sessionStorage.getItem('gtap_utm_source')    || undefined,
-        traffic_medium:   sessionStorage.getItem('gtap_utm_medium')    || undefined,
-        traffic_campaign: sessionStorage.getItem('gtap_utm_campaign')  || undefined,
-        traffic_value:    sessionStorage.getItem('gtap_utm_term')      || undefined,
-        traffic_content:  sessionStorage.getItem('gtap_utm_content')   || undefined,
-        cf_utm_placement: sessionStorage.getItem('gtap_utm_placement') || sessionStorage.getItem('gtap_placement') || undefined
-      };
-
-      Object.keys(rdBody).forEach(function(k) {
-        if (rdBody[k] === undefined || rdBody[k] === null || rdBody[k] === '') {
-          delete rdBody[k];
-        }
-      });
-
-      // Meta Conversions API (apenas se fizer parte de entidade pública ou instituição do Sistema S)
-      if (vinculo.value.trim() !== 'Não faço parte de nenhuma delas') {
-        const eventId = genUuid();
-        const fbp = getCookie('_fbp');
-        const fbc = ensureFbc();
-
-        if (typeof fbq !== 'undefined') {
-          fbq('track', 'Lead', {}, { eventID: eventId });
-        }
-
-        fetch('/capi.php', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            event_name: 'Lead',
-            event_id: eventId,
-            event_source_url: window.location.href,
-            name: rdBody.name,
-            email: rdBody.email,
-            phone: rdBody.mobile_phone,
-            fbp: fbp,
-            fbc: fbc
-          })
-        }).catch(err => console.error('[Meta CAPI] Erro:', err));
-      }
-
-      // Disparo RD Station
-      fetch('https://www.rdstation.com.br/api/1.3/conversions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(rdBody)
-      })
-      .then(res => {
-        if (!res.ok) console.error('[RD Station] Erro', res.status);
-      })
-      .catch(err => console.error('[RD Station] Erro de rede:', err))
-      .finally(() => {
-        btnSubmit.innerText = originalText;
-        btnSubmit.disabled = false;
-        
-        document.getElementById('modalFormWrapper').style.display = 'none';
-        document.getElementById('modalSuccess').classList.add('show');
-      });
-    });
-
-    // Limpar erro ao digitar
-    form.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"]').forEach(input => {
-      input.addEventListener('input', () => {
-        input.closest('.field').classList.remove('has-error');
-      });
-    });
-
-    // Limpar erro ao selecionar dropdown
-    document.getElementById('rd-vinculo').addEventListener('change', () => {
-      document.getElementById('field-vinculo').classList.remove('has-error');
+    window.OpenLeadForms.init({
+      formId: 'rdForm',
+      formWrapId: 'modalFormWrapper',
+      successId: 'modalSuccess',
+      submitText: 'Prosseguir com a Inscrição',
+      loadingText: 'Processando...',
+      rdToken: 'fde56b5029b7f481d3f10fecb3f1de85',
+      rdIdentifier: 'x-gtap-2026-landing-page',
+      fields: { name: 'rd-name', phone: 'rd-phone', email: 'rd-email', setor: 'rd-setor', instituicao: 'rd-instituicao' },
+      errorFields: { name: 'field-name', phone: 'field-phone', email: 'field-email', setor: 'field-setor', instituicao: 'field-instituicao' }
     });
 
     // --- CAROUSEL LOGIC ---

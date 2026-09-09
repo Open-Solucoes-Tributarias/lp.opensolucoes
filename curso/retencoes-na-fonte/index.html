@@ -766,6 +766,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </select>
           <div class="err-msg">Selecione seu setor de trabalho.</div>
         </div>
+        <div class="field" id="field-instituicao">
+          <label for="f-instituicao">Instituição</label>
+          <select id="f-instituicao" name="instituicao" required>
+            <option value="" disabled selected>Selecione</option>
+            <option value="Instituição/entidade pública">Instituição/entidade pública</option>
+            <option value="Instituição do Sistema S">Instituição do Sistema S</option>
+            <option value="Instituição privada">Instituição privada</option>
+          </select>
+          <div class="err-msg">Selecione sua instituição.</div>
+        </div>
+        <input type="hidden" name="utm_source" id="hidden-utm_source">
+        <input type="hidden" name="utm_medium" id="hidden-utm_medium">
+        <input type="hidden" name="utm_campaign" id="hidden-utm_campaign">
+        <input type="hidden" name="utm_term" id="hidden-utm_term">
+        <input type="hidden" name="utm_content" id="hidden-utm_content">
+        <input type="hidden" name="placement" id="hidden-placement">
         <button type="submit" class="btn-primary modal-submit">Enviar</button>
       </form>
     </div>
@@ -778,6 +794,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </div>
 
+<script src="/assets/js/lead-form.js"></script>
 <script>
 (function(){
   // Countdown
@@ -847,194 +864,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   overlay.addEventListener('click', function(e){ if (e.target === overlay) closeModal(); });
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
 
-  // Capture ALL UTM/tracking params from URL on load
-  (function captureUTMs(){
-    var params = new URLSearchParams(window.location.search);
-    var keys = [
-      'utm_source','utm_medium','utm_campaign',
-      'utm_term','utm_content','utm_placement','placement'
-    ];
-    keys.forEach(function(k){
-      var v = params.get(k);
-      if (v) sessionStorage.setItem(k, v);
-    });
-  })();
-
-  function getUTM(k){ return sessionStorage.getItem(k) || ''; }
-
-  // ── Meta CAPI helpers ──
-  function getCookie(name) {
-    var match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
-    return match ? decodeURIComponent(match[1]) : null;
-  }
-  function ensureFbc() {
-    var existing = getCookie('_fbc');
-    if (existing) return existing;
-    var params = new URLSearchParams(window.location.search);
-    var fbclid = params.get('fbclid');
-    if (!fbclid) return null;
-    var fbc = 'fb.1.' + Date.now() + '.' + fbclid;
-    document.cookie = '_fbc=' + fbc + '; path=/; max-age=7776000';
-    return fbc;
-  }
-  function genUuid() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    });
-  }
-
-  // ── Validation ──
-  function setFieldError(fieldId, hasError){
-    var field = document.getElementById(fieldId);
-    var input = field.querySelector('input,select');
-    field.classList.toggle('has-error', hasError);
-    input.classList.toggle('is-invalid', hasError);
-  }
-
-  function isValidEmail(v){
-    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(v);
-  }
-  function isValidPhone(v){
-    var digits = v.replace(/\D/g, '');
-    return digits.length >= 10 && digits.length <= 11;
-  }
-
-  function validateForm(){
-    var nome = document.getElementById('f-nome').value.trim();
-    var whats = document.getElementById('f-whats').value.trim();
-    var email = document.getElementById('f-email').value.trim();
-    var setor = document.getElementById('f-setor').value;
-
-    var nomeOk = nome.length >= 3;
-    var whatsOk = isValidPhone(whats);
-    var emailOk = isValidEmail(email);
-    var setorOk = setor !== '';
-
-    setFieldError('field-nome', !nomeOk);
-    setFieldError('field-whats', !whatsOk);
-    setFieldError('field-email', !emailOk);
-    setFieldError('field-setor', !setorOk);
-
-    return nomeOk && whatsOk && emailOk && setorOk;
-  }
-
-  ['f-nome','f-whats','f-email','f-setor'].forEach(function(id){
-    document.getElementById(id).addEventListener('input', function(){
-      var fieldId = 'field-' + id.split('-')[1];
-      var field = document.getElementById(fieldId);
-      if (field.classList.contains('has-error')) validateForm();
-    });
-  });
-
-  // ── Phone Mask ──
-  var phoneInput = document.getElementById('f-whats');
-  if (phoneInput) {
-    phoneInput.addEventListener('input', function(e) {
-      var v = e.target.value.replace(/\D/g, '');
-      if (v.length > 11) v = v.substring(0, 11);
-      
-      var formatted = v;
-      if (v.length > 2) {
-        formatted = '(' + v.substring(0, 2) + ') ';
-        if (v.length > 6) {
-          if (v.length === 11) {
-            formatted += v.substring(2, 7) + '-' + v.substring(7);
-          } else {
-            formatted += v.substring(2, 6) + '-' + v.substring(6);
-          }
-        } else {
-          formatted += v.substring(2);
-        }
-      }
-      e.target.value = formatted;
-    });
-  }
-
-  // ── Form Submit ──
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-
-    if (!validateForm()) {
-      var firstError = form.querySelector('.has-error input,.has-error select');
-      if (firstError) firstError.focus();
-      return;
-    }
-
-    var btn = form.querySelector('[type="submit"]');
-    btn.disabled = true;
-    btn.textContent = 'Enviando...';
-
-    // RD Station — mesmo token público da conta, identificador diferente para rastrear origem
-    var RD_TOKEN       = 'fde56b5029b7f481d3f10fecb3f1de85';
-    var RD_IDENTIFIER  = 'lp-retencoes-na-fonte';
-
-    var rdBody = {
-      token_rdstation:   RD_TOKEN,
-      identificador:     RD_IDENTIFIER,
-      name:              document.getElementById('f-nome').value.trim(),
-      email:             document.getElementById('f-email').value.trim(),
-      mobile_phone:      document.getElementById('f-whats').value.trim(),
-      cf_setor:          document.getElementById('f-setor').value,
-      traffic_source:    getUTM('utm_source'),
-      traffic_medium:    getUTM('utm_medium'),
-      traffic_campaign:  getUTM('utm_campaign'),
-      traffic_value:     getUTM('utm_term'),
-      traffic_content:   getUTM('utm_content'),
-      cf_utm_placement:  getUTM('utm_placement') || getUTM('placement')
-    };
-
-    // Remove empty fields so RD Station doesn't override existing data
-    Object.keys(rdBody).forEach(function(k){
-      if (rdBody[k] === '') delete rdBody[k];
-    });
-
-    // ── Meta Conversions API (server-side, em paralelo ao Pixel) ──
-    var metaEventId = genUuid();
-    var metaFbp = getCookie('_fbp');
-    var metaFbc = ensureFbc();
-
-    if (typeof fbq !== 'undefined') {
-      fbq('track', 'Lead', {}, { eventID: metaEventId });
-    }
-
-    fetch('/capi.php', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        event_name: 'Lead',
-        event_id: metaEventId,
-        event_source_url: window.location.href,
-        name: rdBody.name,
-        email: rdBody.email,
-        phone: rdBody.mobile_phone,
-        fbp: metaFbp,
-        fbc: metaFbc
-      })
-    }).catch(function(err) {
-      console.error('[Meta CAPI] Erro de rede ao enviar evento:', err);
-    });
-
-    fetch('https://www.rdstation.com.br/api/1.3/conversions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(rdBody)
-    })
-    .then(function(res){
-      if (!res.ok) throw new Error('status ' + res.status);
-      formWrap.style.display = 'none';
-      success.classList.add('show');
-    })
-    .catch(function(err){
-      console.error('RD Station error:', err);
-      // Show success anyway to not block user experience
-      formWrap.style.display = 'none';
-      success.classList.add('show');
-    })
-    .finally(function(){
-      btn.disabled = false;
-      btn.textContent = 'Enviar';
-    });
+  window.OpenLeadForms.init({
+    formId: 'leadForm',
+    formWrapId: 'modalForm',
+    successId: 'formSuccess',
+    submitText: 'Enviar',
+    loadingText: 'Enviando...',
+    rdToken: 'fde56b5029b7f481d3f10fecb3f1de85',
+    rdIdentifier: 'lp-retencoes-na-fonte',
+    fields: { name: 'f-nome', phone: 'f-whats', email: 'f-email', setor: 'f-setor', instituicao: 'f-instituicao' },
+    errorFields: { name: 'field-nome', phone: 'field-whats', email: 'field-email', setor: 'field-setor', instituicao: 'field-instituicao' }
   });
 
   /* --- Header scroll effect --- */
@@ -1152,4 +991,3 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </script>
 </body>
 </html>
-
