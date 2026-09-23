@@ -32,6 +32,10 @@ function createElement(tagName) {
     addEventListener(type, handler) {
       this.listeners[type] = handler;
     },
+    attributes: {},
+    setAttribute(name, value) {
+      this.attributes[name] = value;
+    },
     focus() {
       this.focused = true;
     },
@@ -56,6 +60,8 @@ function loadHelper() {
   };
   const window = {
     location: { href: 'https://example.test/congresso?utm_source=facebook&utm_medium=paid&utm_campaign=congresso_2026&utm_term=tributacao&utm_content=video_01&placement=feed', search: '?utm_source=facebook&utm_medium=paid&utm_campaign=congresso_2026&utm_term=tributacao&utm_content=video_01&placement=feed' },
+    // Retries usam window.setTimeout; no teste rodam na hora para nao gastar tempo real.
+    setTimeout(fn) { fn(); return 0; },
     sessionStorage: {
       setItem(key, value) { session[key] = String(value); },
       getItem(key) { return Object.prototype.hasOwnProperty.call(session, key) ? session[key] : null; },
@@ -129,7 +135,41 @@ async function submitFixture(instituicao, rdOk = true) {
 }
 
 async function flushPromises() {
-  await new Promise((resolve) => setImmediate(resolve));
+  // Varias rodadas: os retries encadeiam promises, uma rodada nao basta.
+  for (let i = 0; i < 25; i += 1) {
+    await new Promise((resolve) => setImmediate(resolve));
+  }
+}
+
+const RD_ENDPOINT = 'https://www.rdstation.com.br/api/1.3/conversions';
+
+// Cada item de `responses` e o status da n-esima tentativa no RD,
+// ou a string 'network' para simular falha de rede (fetch rejeitado).
+async function submitWithResponses(responses, instituicao) {
+  const { window, form, config, elements } = buildFixture();
+  const fetchCalls = [];
+  const fbqCalls = [];
+  let attempt = 0;
+
+  elements.instituicao.value = instituicao || 'Instituição/entidade pública';
+
+  window.fetch = (url, options) => {
+    fetchCalls.push({ url, options });
+    if (url !== RD_ENDPOINT) return Promise.resolve({ ok: true, status: 200 });
+    const next = responses[Math.min(attempt, responses.length - 1)];
+    attempt += 1;
+    if (next === 'network') return Promise.reject(new Error('conexao caiu'));
+    return Promise.resolve({ ok: next < 400, status: next });
+  };
+  window.fbq = (...args) => { fbqCalls.push(args); };
+
+  window.OpenLeadForms.init(config);
+  form.listeners.submit({ preventDefault() {} });
+  await flushPromises();
+
+  const rdCalls = fetchCalls.filter((call) => call.url === RD_ENDPOINT);
+  const errorBox = form.children.find((child) => child.className === 'lead-form-error');
+  return { fetchCalls, rdCalls, fbqCalls, elements, form, config, window, errorBox };
 }
 
 {
@@ -191,10 +231,73 @@ async function flushPromises() {
   }
 
   {
-    const { fetchCalls, fbqCalls, elements } = await submitFixture('Instituição do Sistema S', false);
-    assert.strictEqual(fetchCalls.length, 1);
+    // RD fora do ar: 3 tentativas, nenhum Lead, nenhuma tela de sucesso.
+    const { rdCalls, fbqCalls, elements } = await submitWithResponses([500], 'Instituição do Sistema S');
+    assert.strictEqual(rdCalls.length, 3);
     assert.strictEqual(fbqCalls.length, 0);
     assert.strictEqual(elements.success.classList.contains('show'), false);
+  }
+
+  {
+    // Instabilidade momentanea: falha uma vez, funciona na segunda.
+    const { rdCalls, fbqCalls, elements, errorBox } = await submitWithResponses([500, 200]);
+    assert.strictEqual(rdCalls.length, 2);
+    assert.strictEqual(fbqCalls.length, 1);
+    assert.strictEqual(elements.success.classList.contains('show'), true);
+    assert.strictEqual(errorBox.style.display, 'none');
+  }
+
+  {
+    // Falha de rede tambem e repetida.
+    const { rdCalls } = await submitWithResponses(['network']);
+    assert.strictEqual(rdCalls.length, 3);
+  }
+
+  {
+    // 4xx e erro do cliente: repetir nao adianta, tenta uma vez so.
+    const { rdCalls } = await submitWithResponses([400]);
+    assert.strictEqual(rdCalls.length, 1);
+  }
+
+  {
+    // O usuario precisa VER que falhou, senao reenvia achando que deu certo.
+    const { errorBox } = await submitWithResponses([500]);
+    assert.ok(errorBox, 'caixa de erro deveria ter sido criada no formulario');
+    assert.strictEqual(errorBox.style.display, 'block');
+    assert.ok(errorBox.textContent.length > 0, 'caixa de erro deveria ter texto');
+    assert.strictEqual(errorBox.attributes.role, 'alert');
+  }
+
+  {
+    // API publica usada pelas consultorias, que tem submit inline proprio.
+    const { window, form } = buildFixture();
+    assert.strictEqual(typeof window.OpenLeadForms.postRdConversion, 'function');
+    assert.strictEqual(typeof window.OpenLeadForms.errorBoxFor, 'function');
+
+    let calls = 0;
+    window.fetch = () => {
+      calls += 1;
+      return Promise.resolve({ ok: calls >= 2, status: calls >= 2 ? 200 : 503 });
+    };
+    await window.OpenLeadForms.postRdConversion({ email: 'maria@example.com' });
+    assert.strictEqual(calls, 2);
+
+    const box = window.OpenLeadForms.errorBoxFor(form);
+    const el = form.children.find((child) => child.className === 'lead-form-error');
+    box.show();
+    assert.strictEqual(el.style.display, 'block');
+    assert.ok(el.textContent.length > 0);
+    box.hide();
+    assert.strictEqual(el.style.display, 'none');
+  }
+
+  {
+    // Reenviar limpa o erro anterior antes de tentar de novo.
+    const { form, errorBox } = await submitWithResponses([500]);
+    assert.strictEqual(errorBox.style.display, 'block');
+    form.listeners.submit({ preventDefault() {} });
+    assert.strictEqual(errorBox.style.display, 'none');
+    assert.strictEqual(errorBox.textContent, '');
   }
 
   {

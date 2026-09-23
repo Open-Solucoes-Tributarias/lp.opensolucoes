@@ -4,6 +4,9 @@
   var RD_ENDPOINT = 'https://www.rdstation.com.br/api/1.3/conversions';
   var RD_FIELD_INSTITUICAO = 'cf_instituicao';
   var TRACKING_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'placement'];
+  var RD_MAX_ATTEMPTS = 3;
+  var RD_RETRY_BASE_MS = 600;
+  var RD_ERROR_TEXT = 'Não foi possível enviar seus dados agora. Verifique sua conexão e tente novamente.';
 
   function getElement(id) {
     return document.getElementById(id);
@@ -176,6 +179,73 @@
     });
   }
 
+  function createErrorBox(form) {
+    var box = document.createElement('div');
+    box.className = 'lead-form-error';
+    box.setAttribute('role', 'alert');
+    // Estilo inline: o helper atende paginas com CSS diferentes.
+    box.style.display = 'none';
+    box.style.color = '#c0392b';
+    box.style.marginTop = '12px';
+    box.style.fontSize = '14px';
+    box.style.lineHeight = '1.4';
+    form.appendChild(box);
+    return box;
+  }
+
+  function showError(box, message) {
+    box.textContent = message;
+    box.style.display = 'block';
+  }
+
+  function hideError(box) {
+    box.textContent = '';
+    box.style.display = 'none';
+  }
+
+  function delay(ms) {
+    return new Promise(function(resolve) {
+      window.setTimeout(resolve, ms);
+    });
+  }
+
+  function postRdConversion(rdBody) {
+    var attempt = 0;
+
+    function attemptOnce() {
+      attempt += 1;
+      return window.fetch(RD_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(rdBody)
+      }).then(function(response) {
+        if (response.ok) return response;
+        var httpError = new Error('RD Station status ' + response.status);
+        // 4xx e erro de payload/token: repetir nao muda o resultado.
+        httpError.retryable = response.status >= 500;
+        throw httpError;
+      }, function(networkError) {
+        networkError.retryable = true;
+        throw networkError;
+      }).catch(function(error) {
+        if (error.retryable && attempt < RD_MAX_ATTEMPTS) {
+          return delay(RD_RETRY_BASE_MS * attempt).then(attemptOnce);
+        }
+        throw error;
+      });
+    }
+
+    return attemptOnce();
+  }
+
+  function errorBoxFor(form) {
+    var box = createErrorBox(form);
+    return {
+      show: function(message) { showError(box, message || RD_ERROR_TEXT); },
+      hide: function() { hideError(box); }
+    };
+  }
+
   function showSuccess(config) {
     var formWrap = getElement(config.formWrapId);
     var success = getElement(config.successId);
@@ -214,8 +284,11 @@
     var button = form ? form.querySelector('[type="submit"]') : null;
     if (!form) return;
 
+    var errorBox = createErrorBox(form);
+
     form.addEventListener('submit', function(event) {
       event.preventDefault();
+      hideError(errorBox);
       captureTrackingFields(form);
 
       if (!validateForm(config)) {
@@ -230,13 +303,8 @@
       }
 
       var rdBody = buildRdBody(form, config);
-      window.fetch(RD_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(rdBody)
-      })
-      .then(function(response) {
-        if (!response.ok) throw new Error('RD Station status ' + response.status);
+      postRdConversion(rdBody)
+      .then(function() {
         if (shouldTrackLead(rdBody[RD_FIELD_INSTITUICAO])) {
           trackMetaLead(rdBody);
         }
@@ -244,6 +312,7 @@
       })
       .catch(function(error) {
         console.error('[RD Station] Erro ao enviar conversao:', error);
+        showError(errorBox, config.errorText || RD_ERROR_TEXT);
       })
       .finally(function() {
         if (button) {
@@ -265,6 +334,9 @@
 
   window.OpenLeadForms = {
     init: init,
+    // Usados pelas consultorias, que tem submit inline proprio.
+    postRdConversion: postRdConversion,
+    errorBoxFor: errorBoxFor,
     _test: {
       buildRdBody: buildRdBody,
       captureTrackingFields: captureTrackingFields,
