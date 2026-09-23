@@ -1,3 +1,5 @@
+// O servidor serve este arquivo com cache de 7 dias. Ao altera-lo, atualize
+// o ?v= em todas as paginas que o carregam (tests/asset-versioning.test.js).
 (function(window, document) {
   'use strict';
 

@@ -21,7 +21,7 @@ function submitHandler(dir) {
 PAGES.forEach(function (dir) {
   const { html, block } = submitHandler(dir);
 
-  const helperTag = html.indexOf('<script src="/assets/js/lead-form.js"></script>');
+  const helperTag = html.indexOf('<script src="/assets/js/lead-form.js');
   const handlerStart = html.indexOf("form.addEventListener('submit'");
   assert.ok(helperTag > -1, dir + ': deve carregar /assets/js/lead-form.js');
   assert.ok(helperTag < handlerStart, dir + ': lead-form.js deve carregar antes do script da pagina');
