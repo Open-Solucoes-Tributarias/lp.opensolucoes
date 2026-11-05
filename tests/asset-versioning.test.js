@@ -14,6 +14,7 @@ const PAGES = [
   'consultoria',
   'consultoria/clinicas',
   'consultoria/zfm',
+  'diagnostico-tributario-reforma-tributaria-assespro',
 ];
 
 const versions = new Set();
