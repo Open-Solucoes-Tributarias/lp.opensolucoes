@@ -30,6 +30,8 @@ section{padding:72px 0}
 .top .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
 .logos{display:flex;align-items:center;gap:18px;font-family:Manrope,sans-serif}
 .lo{font-weight:800;font-size:22px;letter-spacing:-.5px;font-style:italic;color:var(--ink)}.lo small{display:block;font:400 8px/1 "Roboto Condensed";letter-spacing:.5px;font-style:normal;color:var(--mut)}
+.lo-img{display:block;height:40px;width:auto}
+@media (prefers-color-scheme:dark){.lo-img{filter:brightness(0) invert(1)}}
 .la{font-weight:800;font-size:20px;color:var(--navy)}.la small{display:block;font:400 9px/1 Manrope;letter-spacing:3px;color:var(--navy)}
 .top .btn{padding:10px 20px;font-size:14px}
 /* hero */
@@ -175,7 +177,7 @@ fbq('track', 'ViewContent', {content_name: 'Diagnostico Tributario Assespro', co
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-566F4WT" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <header class="top"><div class="wrap">
- <div class="logos"><div class="lo">OPEN<small>SOLUÇÕES TRIBUTÁRIAS</small></div><div class="la">assespro<small>REGIONAL · BA</small></div></div>
+ <div class="logos"><img class="lo-img" src="assets/logo.svg" alt="Open Soluções Tributárias" width="107" height="40"><div class="la">assespro<small>REGIONAL · BA</small></div></div>
  <a class="btn navy" href="#contato">Fale conosco</a>
 </div></header>
 
@@ -323,7 +325,7 @@ fbq('track', 'ViewContent', {content_name: 'Diagnostico Tributario Assespro', co
 </main>
 
 <footer><div class="wrap">
- <div class="lo">OPEN<small>SOLUÇÕES TRIBUTÁRIAS</small></div>
+ <img class="lo-img" src="assets/logo.svg" alt="Open Soluções Tributárias" width="107" height="40">
  <span>Copyright © Open Soluções Tributárias – Todos os direitos reservados. <a href="#">Termos de Uso</a> | <a href="#">Políticas de Privacidade</a> | <a href="#">Políticas de Cookies</a></span>
 </div></footer>
 
