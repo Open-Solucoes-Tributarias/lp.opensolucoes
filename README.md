@@ -87,3 +87,10 @@ Ao criar ou editar qualquer página neste repositório, certifique-se de seguir 
 *   Adicione atributos `width` e `height` em todas as tags `<img>` para evitar instabilidade de layout (CLS - Cumulative Layout Shift).
 *   Carregue fontes de forma otimizada usando `font-display: swap` no CSS.
 *   Scripts de rastreamento (GTM, Pixel, Analytics) devem ser carregados de forma assíncrona (`async` ou `defer`) ou injetados no final do body para não bloquear a renderização inicial da página.
+
+---
+
+## 🔌 Documentações de Integração
+
+*   [Documentação da Integração com o RD Station Marketing](DOCS_RD_STATION.md): Guia prático de como funciona o disparo de conversões via API 1.3, payload, identificadores e snippet para novas LPs.
+
