@@ -79,7 +79,7 @@ $regime  = limpar(isset($input['regime']) ? $input['regime'] : '');
 $fone    = limpar(isset($input['phone']) ? $input['phone'] : '', 30);
 
 if (mb_strlen($nome, 'UTF-8') < 3 || !filter_var($email, FILTER_VALIDATE_EMAIL)
-    || $empresa === '' || $regime === '' || strlen(preg_replace('/\D/', '', $fone)) < 10) {
+    || $empresa === '' || $regime === '' || ($fone !== '' && strlen(preg_replace('/\D/', '', $fone)) < 10)) {
     http_response_code(422);
     echo json_encode(['ok' => false, 'error' => 'Dados inválidos']);
     exit;
@@ -97,7 +97,7 @@ date_default_timezone_set('America/Bahia');
 $pagina = limpar(isset($input['page']) ? $input['page'] : '', 300);
 $dataHora = date('d/m/Y H:i');
 $foneDigitos = preg_replace('/\D/', '', $fone);
-$linkWhats = 'https://wa.me/55' . $foneDigitos;
+$linkWhats = $foneDigitos !== '' ? 'https://wa.me/55' . $foneDigitos : '';
 
 function h($texto) {
     return htmlspecialchars($texto, ENT_QUOTES, 'UTF-8');
@@ -107,7 +107,7 @@ function h($texto) {
 $campos = [
     ['Nome', $nome, null],
     ['E-mail', $email, 'mailto:' . $email],
-    ['WhatsApp', $fone, $linkWhats],
+    ['WhatsApp', $fone !== '' ? $fone : 'Não informado', $linkWhats !== '' ? $linkWhats : null],
     ['Empresa', $empresa, null],
     ['Regime tributário', $regime, null],
 ];
@@ -161,6 +161,10 @@ $paginaHtml = $pagina !== ''
     ? '<div style="font-size:12px;color:#8a8a96;margin-top:6px;word-break:break-all;">Página: ' . h($pagina) . '</div>'
     : '';
 
+$botaoWhats = $linkWhats !== ''
+    ? '<td style="background:#25D366;border-radius:999px;"><a href="' . h($linkWhats) . '" style="display:inline-block;padding:12px 24px;color:#ffffff;font-weight:700;font-size:15px;text-decoration:none;">Chamar no WhatsApp</a></td><td width="10"></td>'
+    : '';
+
 $html = '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>'
     . '<body style="margin:0;padding:0;background:#EEF0F5;font-family:Arial,Helvetica,sans-serif;">'
     . '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#EEF0F5;padding:24px 12px;"><tr><td align="center">'
@@ -173,8 +177,7 @@ $html = '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta nam
     . '<p style="margin:0 0 14px;font-size:15px;color:#434351;line-height:1.5;"><strong>' . h($nome) . '</strong> preencheu o formulário e aguarda contato.</p>'
     . '<table role="presentation" width="100%" cellpadding="0" cellspacing="0">' . $linhasHtml . '</table>'
     . '<table role="presentation" cellpadding="0" cellspacing="0" style="margin-top:24px;"><tr>'
-    . '<td style="background:#25D366;border-radius:999px;"><a href="' . h($linkWhats) . '" style="display:inline-block;padding:12px 24px;color:#ffffff;font-weight:700;font-size:15px;text-decoration:none;">Chamar no WhatsApp</a></td>'
-    . '<td width="10"></td>'
+    . $botaoWhats
     . '<td style="background:#1D61DC;border-radius:999px;"><a href="mailto:' . h($email) . '" style="display:inline-block;padding:12px 24px;color:#ffffff;font-weight:700;font-size:15px;text-decoration:none;">Responder por e-mail</a></td>'
     . '</tr></table>'
     . $origemHtml

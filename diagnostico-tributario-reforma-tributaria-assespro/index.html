@@ -3,225 +3,153 @@
 <head>
 <meta charset="utf-8">
 <base href="/diagnostico-tributario-reforma-tributaria-assespro/">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Diagnóstico da Reforma Tributária por CNPJ | Open Soluções Tributárias</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#3d4399;--blue:#3a9bf0;--blue2:#2f86e8;--sky:#d9efff;--bg:#f4f4f4;--card:#fff;--ink:#222;--mut:#555;--line:#cfe3f7;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171f;--card:#1d222d;--ink:#eef2f8;--mut:#b3bccb;--line:#2c4a6b;--sky:#1d3550;color-scheme:dark}}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--card);color:var(--ink);font:400 17px/1.6 "Roboto Condensed",Arial,sans-serif}
+h1,h2,h3{font-family:Manrope,Arial,sans-serif;line-height:1.12;margin:0}
+h2{font-size:clamp(28px,4vw,40px);font-weight:800;text-align:center;margin-bottom:12px}
+p{margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+section{padding:72px 0}
+.sub{text-align:center;color:var(--mut);max-width:620px;margin:0 auto 40px}
+.btn{display:inline-block;border:0;cursor:pointer;font:600 16px Manrope,Arial,sans-serif;padding:14px 28px;border-radius:999px;text-decoration:none;color:#fff;background:var(--blue2);transition:transform .15s,background .15s}
+.btn:hover{background:#1f74d6;transform:translateY(-2px)}
+.btn.navy{background:var(--navy)}.btn.navy:hover{background:#2d3280}
+.btn.white{background:#fff;color:var(--navy)}.btn.white:hover{background:#eef6ff}
+.btn:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--navy);outline-offset:3px}
+/* top bar */
+.top{position:sticky;top:0;z-index:20;background:var(--card);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+.logos{display:flex;align-items:center;gap:18px;font-family:Manrope,sans-serif}
+.lo{font-weight:800;font-size:22px;letter-spacing:-.5px;font-style:italic;color:var(--ink)}.lo small{display:block;font:400 8px/1 "Roboto Condensed";letter-spacing:.5px;font-style:normal;color:var(--mut)}
+.la{font-weight:800;font-size:20px;color:var(--navy)}.la small{display:block;font:400 9px/1 Manrope;letter-spacing:3px;color:var(--navy)}
+.top .btn{padding:10px 20px;font-size:14px}
+/* hero */
+.hero{background:linear-gradient(105deg,var(--card) 45%,var(--sky) 100%);padding:64px 0 72px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-30px;bottom:20px;width:240px;height:150px;background:radial-gradient(var(--blue) 1.6px,transparent 2px) 0 0/16px 16px;opacity:.35}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;position:relative;z-index:1}
+.hero h1{font-size:clamp(36px,5.6vw,60px);font-weight:800;letter-spacing:-1.5px}
+.hero p.lead{font-size:20px;margin:20px 0 24px;max-width:520px}
+.checks{list-style:none;padding:0;margin:0 0 28px;display:grid;gap:8px}
+.checks li{padding-left:30px;position:relative}
+.checks li::before{content:"";position:absolute;left:0;top:5px;width:18px;height:18px;border-radius:5px;background:var(--blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.2l2.2 2.2 4.8-5' fill='none' stroke='%23fff' stroke-width='1.8'/%3E%3C/svg%3E") center/12px no-repeat}
+.form{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:28px;box-shadow:0 18px 50px rgba(47,134,232,.18)}
+.form h3{font-size:22px;margin-bottom:4px}.form .mini{color:var(--mut);font-size:15px;margin-bottom:18px}
+label{display:block;font:600 13px Manrope,sans-serif;margin:12px 0 5px}
+input,select{width:100%;padding:12px 14px;border:1px solid #b9cfe6;border-radius:12px;font:400 16px "Roboto Condensed",sans-serif;background:var(--card);color:var(--ink)}
+.form .btn{width:100%;margin-top:20px}
+.safe{font-size:13px;color:var(--mut);text-align:center;margin-top:10px}
+.alert-badge{display:inline-block;background:var(--navy);color:#fff;font:600 13px Manrope;padding:6px 14px;border-radius:999px;margin-bottom:18px}
+/* faixa */
+.stats{background:var(--blue);color:#fff;padding:30px 0}
+.stats .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;text-align:center}
+.stats b{font:800 34px Manrope;display:block}.stats span{font-size:16px}
+/* proposta */
+.gray{background:var(--bg)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--card);border-radius:14px;padding:28px 24px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.ic{width:42px;height:42px;border-radius:12px;background:var(--blue);display:grid;place-items:center;margin-bottom:16px;color:#fff;font:800 20px Manrope}
+.card h3{font-size:19px;margin-bottom:6px}.card p{color:var(--mut)}
+.attn{background:var(--blue);padding:40px 0}
+.attn .box{max-width:760px;margin:0 auto;background:#eef2f6;color:#222;border-radius:22px;padding:26px 32px;display:flex;gap:22px;align-items:center}
+.attn .box b{font:800 22px Manrope;display:block}.attn .ic{background:#111;flex:none;width:52px;height:52px;border-radius:10px}
+/* split */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.split h2{text-align:left}
+.list{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:14px}
+.list li{display:flex;gap:14px;align-items:flex-start}
+.list .ic{width:34px;height:34px;border-radius:9px;margin:0;font-size:15px;flex:none}
+.panel{border-radius:28px;background:linear-gradient(145deg,#0f2a5c,#2a5db0);min-height:340px;position:relative;overflow:hidden;color:#fff;padding:36px;display:flex;flex-direction:column;justify-content:flex-end}
+.panel::before{content:"";position:absolute;inset:auto -20px 40px auto;width:220px;height:140px;background:radial-gradient(rgba(255,255,255,.5) 1.6px,transparent 2px) 0 0/16px 16px}
+.panel b{font:800 56px/1 Manrope}.panel span{font-size:18px;max-width:260px;margin-top:8px}
+/* prazos */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.pz{background:var(--card);border:1px solid var(--blue);border-radius:16px;padding:26px 28px;color:var(--ink);box-shadow:0 4px 18px rgba(0,0,0,.06)}
+.hero-img{width:100%;border-radius:24px;display:block;box-shadow:0 18px 50px rgba(47,134,232,.2)}.pimg{width:100%;border-radius:28px;display:block;box-shadow:0 20px 40px rgba(47,134,232,.2)}.pz{display:flex;gap:20px;align-items:center}.pz img{width:110px;height:110px;border-radius:14px;flex:none}.pc img{width:100%;aspect-ratio:1/.9;object-fit:cover;border-radius:20px;display:block;margin-bottom:16px}@media (max-width:860px){.pimg{order:0!important}.pz img{width:84px;height:84px}}
+.pz h3{font-size:22px;margin-bottom:6px;transition:color .25s}.pz p{color:var(--mut)}
+.pz{transition:transform .25s,box-shadow .25s,border-color .25s,border-width .25s}.pz img{transition:transform .3s}
+.pz:hover,.pz:focus-within{transform:translateY(-6px);box-shadow:0 16px 36px rgba(47,134,232,.32);border-color:var(--navy)}
+.pz:hover img{transform:scale(1.1) rotate(-3deg)}.pz:hover h3{color:var(--blue2)}
+@media (prefers-reduced-motion:reduce){.pz,.pz img{transition:none}.pz:hover,.pz:focus-within,.pz:hover img{transform:none}}
+
+/* publico */
+.pub{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.pc{background:var(--card);border-radius:26px;padding:28px 24px;text-align:center;box-shadow:0 14px 34px rgba(0,0,0,.08)}
+.pc h3{font-size:24px;margin:6px 0 4px}.pc p{color:var(--mut);margin-bottom:18px;min-height:52px}
+.pc .btn{width:100%}
+/* fale */
+.fale-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.fale-txt h2{text-align:left}.fale-txt>p{font-size:19px;margin:14px 0 24px}
+@media (max-width:860px){.fale-grid{grid-template-columns:1fr;gap:32px}}
+/* timeline */
+.tl{list-style:none;margin:52px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);position:relative}
+.tl::before{content:"";position:absolute;left:10%;right:10%;top:11px;height:3px;background:var(--line)}
+.tl li{position:relative;padding:38px 12px 0;text-align:center}
+.tl li::before{content:"";position:absolute;top:0;left:50%;margin-left:-12px;width:24px;height:24px;border-radius:50%;background:var(--card);border:4px solid var(--blue);transition:transform .2s}
+.tl li:hover::before{transform:scale(1.3)}
+.tl li.now::before{background:var(--navy);border-color:var(--navy);box-shadow:0 0 0 6px rgba(61,67,153,.22)}
+.tl b{display:block;font:800 26px Manrope,sans-serif;color:var(--blue2)}.tl li.now b{color:var(--navy)}
+.tl p{font-size:16px;line-height:1.4;color:var(--mut);margin-top:6px}
+.tl em{display:inline-block;background:var(--navy);color:#fff;font:700 12px Manrope,sans-serif;font-style:normal;padding:3px 12px;border-radius:999px;margin-bottom:6px}
+.tlnote{text-align:center;font-size:13px;color:var(--mut);margin-top:34px}
+@media (max-width:860px){.tl{grid-template-columns:1fr;margin-top:36px}.tl::before{left:11px;right:auto;top:12px;bottom:12px;width:3px;height:auto}.tl li{text-align:left;padding:0 0 28px 46px}.tl li::before{left:0;margin-left:0}}
+@media (prefers-reduced-motion:reduce){.tl li::before{transition:none}.tl li:hover::before{transform:none}}
+/* preco */
+.price{background:var(--blue);color:#fff}
+.price h2{color:#fff}
+.tag{display:table;margin:0 auto 34px;background:#fff;color:#222;font:600 13px Manrope;padding:10px 24px;border-radius:999px}
+.pr{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pbox{background:var(--card);color:var(--ink);border-radius:12px;padding:32px 22px;text-align:center;position:relative}
+.pbox.hot{outline:4px solid #ffd54a}
+.pbox em{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:#ffd54a;color:#222;font:800 12px Manrope;font-style:normal;padding:5px 14px;border-radius:999px;white-space:nowrap}
+.pbox h3{font-size:20px;font-weight:800}
+.old{text-decoration:line-through;text-decoration-color:#d33;color:var(--mut);margin-top:14px;font-size:20px}
+.now{font:800 clamp(48px,6vw,68px)/1 "Roboto Condensed";color:var(--blue2);margin:4px 0 20px}.now small{font-size:22px;vertical-align:top;margin:0 4px}
+.pbox .btn{width:100%;padding:14px 10px;font-size:15px}
+.note{text-align:center;margin-top:28px;font-size:18px}
+/* dif */
+.dif{max-width:900px;margin:36px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.dif div{display:flex;align-items:center;gap:18px;background:var(--card);border-left:5px solid var(--blue);border-radius:14px;padding:22px 24px;text-align:left;font-size:18px;line-height:1.35;color:var(--ink);box-shadow:0 4px 18px rgba(0,0,0,.06);transition:transform .25s,box-shadow .25s,border-color .25s}
+.dif div::before{content:"";flex:none;width:42px;height:42px;border-radius:12px;background:var(--blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.2l2.2 2.2 4.8-5' fill='none' stroke='%23fff' stroke-width='1.6'/%3E%3C/svg%3E") center/24px no-repeat}
+.dif div:hover{transform:translateY(-4px);border-left-color:var(--navy);box-shadow:0 14px 30px rgba(47,134,232,.25)}
+@media (max-width:860px){.dif{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.dif div{transition:none}.dif div:hover{transform:none}}
+
+/* faq */
+details{background:var(--card);border-radius:12px;padding:18px 22px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+summary{cursor:pointer;font:700 17px Manrope;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::after{content:"+";color:var(--blue2);font-size:24px;line-height:1}details[open] summary::after{content:"–"}
+details p{margin-top:10px;color:var(--mut)}
+.faq{max-width:760px;margin:0 auto}
+/* cta final */
+.final{background:linear-gradient(120deg,var(--navy),#2a5db0);color:#fff;text-align:center}
+.final h2{color:#fff}.final p{max-width:560px;margin:0 auto 28px;font-size:19px}
+footer{padding:36px 0;font-size:13px;color:var(--mut)}
+footer .wrap{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+footer a{color:inherit;font-weight:700}
+.wa{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:30;background:#25d366;color:#fff;border-radius:999px;padding:13px 20px;font:700 15px Manrope;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+@media (max-width:860px){
+ section{padding:52px 0}
+ .hero .wrap,.split{grid-template-columns:1fr;gap:32px}
+ .cards,.pub,.pr,.grid2,.stats .wrap{grid-template-columns:1fr}
+ .pr{gap:28px}.logos .la{display:none}
+ .attn .box{flex-direction:column;text-align:center}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
+</style>
 <meta name="description" content="Diagnóstico tributário individual por CNPJ para medir o impacto da Reforma Tributária. Relatório em até 60 dias e condição exclusiva para assinantes Assespro.">
 <link rel="canonical" href="https://pagina.opensolucoestributarias.com.br/diagnostico-tributario-reforma-tributaria-assespro">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="pt_BR">
-<meta property="og:site_name" content="Open Soluções Tributárias">
-<meta property="og:title" content="Diagnóstico da Reforma Tributária por CNPJ">
-<meta property="og:description" content="Descubra o impacto real da Reforma Tributária no seu CNPJ. Relatório em até 60 dias e condição exclusiva para assinantes Assespro.">
-<meta property="og:url" content="https://pagina.opensolucoestributarias.com.br/diagnostico-tributario-reforma-tributaria-assespro">
-<meta name="twitter:card" content="summary">
 <link rel="icon" type="image/svg+xml" href="assets/favicon-blue.svg" media="(prefers-color-scheme: light)">
 <link rel="icon" type="image/svg+xml" href="assets/favicon-white.svg" media="(prefers-color-scheme: dark)">
 <link rel="icon" type="image/svg+xml" href="assets/favicon-blue.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap">
-<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
-<script>document.documentElement.className += ' js';</script>
-<style>
-:root{
-  --ease:cubic-bezier(0.32,0.72,0,1);
-  --ink:#000000;--text:#434351;--muted:#63636E;
-  --bg:#FBFBFB;--alt:#F4F2F0;--line:#E4E4EC;--white:#FFFFFF;
-  --royal:#1D61DC;--royal-dark:#173468;--cyan:#0B8ECC;--gold:#CAA624;--error:#C0392B;
-  --dark:#181818;--darker:#000000;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:'Manrope',system-ui,sans-serif;font-size:16px;line-height:24px;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased}
-h1,h2,h3{color:var(--ink);font-weight:700;text-wrap:balance}
-p,li{text-wrap:pretty}
-img{max-width:100%;display:block}
-a{color:inherit}
-:focus-visible{outline:2px solid var(--royal);outline-offset:2px}
-.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
-section{padding:64px 0}
-@media(min-width:900px){section{padding:96px 0}}
-.skip{position:absolute;left:16px;top:-80px;background:var(--ink);color:#fff;padding:8px 12px;border-radius:8px;z-index:100;font-weight:600;transition:top .4s var(--ease)}
-.skip:focus{top:16px}
-
-/* tipografia */
-.eyebrow{display:flex;align-items:center;gap:8px;font-size:14px;line-height:20px;font-weight:600;color:var(--royal);margin-bottom:12px}
-h2{font-size:30px;line-height:36px;margin-bottom:16px}
-@media(min-width:900px){h2{font-size:36px;line-height:40px}}
-h3{font-size:20px;line-height:28px;margin-bottom:8px}
-.lead{font-size:18px;line-height:28px;max-width:680px}
-
-/* botões */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--royal);color:#fff;text-decoration:none;font:inherit;font-size:16px;line-height:24px;font-weight:600;padding:8px 12px;border-radius:9999px;border:0;cursor:pointer;transition:all 700ms var(--ease)}
-.btn:hover{background:var(--royal-dark);transform:translateY(-2px)}
-.btn:active{transform:scale(0.98)}
-.btn:disabled{opacity:.6;cursor:wait;transform:none}
-.btn.sm{font-size:14px;line-height:20px}
-.btn.light{background:var(--white);color:var(--ink)}
-.btn.light:hover{background:var(--alt)}
-
-/* nav ilha */
-.nav{position:fixed;top:24px;left:50%;transform:translateX(-50%);z-index:50;display:flex;align-items:center;justify-content:space-between;gap:24px;width:calc(100% - 32px);max-width:1088px;padding:8px 8px 8px 24px;border-radius:9999px;background:rgba(255,255,255,.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(0,0,0,.08);transition:all 700ms var(--ease)}
-.nav-logo{display:flex;align-items:center;gap:16px}
-.nav-logo img{height:32px;width:auto}
-.nav-x,.nav-logo .nav-partner{display:none}
-.nav-x{width:1px;height:24px;background:var(--line)}
-.nav-logo .nav-partner{height:24px}
-@media(min-width:481px){.nav-x,.nav-logo .nav-partner{display:block}}
-.nav-links{display:none;align-items:center;gap:32px;list-style:none;margin:0 auto}
-.nav-links a{font-size:14px;line-height:20px;font-weight:600;text-decoration:none;color:var(--text);transition:color 700ms var(--ease)}
-.nav-links a:hover{color:var(--royal)}
-.nav-links a[aria-current="true"]{color:var(--royal)}
-@media(min-width:900px){.nav-links{display:flex}.burger{display:none}}
-.nav .btn{margin-left:auto}
-@media(min-width:900px){.nav .btn{margin-left:0}}
-.burger{position:relative;width:40px;height:40px;border:0;background:transparent;cursor:pointer;border-radius:9999px}
-.burger span{position:absolute;left:12px;width:16px;height:2px;background:var(--ink);border-radius:2px;transition:all 700ms var(--ease)}
-.burger span:nth-child(1){top:16px}
-.burger span:nth-child(2){top:22px}
-.menu-open .burger span:nth-child(1){top:19px;transform:rotate(45deg)}
-.menu-open .burger span:nth-child(2){top:19px;transform:rotate(-45deg)}
-.overlay{position:fixed;inset:0;z-index:40;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:24px;background:rgba(255,255,255,.8);backdrop-filter:blur(64px);-webkit-backdrop-filter:blur(64px);opacity:0;visibility:hidden;transition:all 700ms var(--ease)}
-.menu-open .overlay{opacity:1;visibility:visible}
-.overlay a{font-size:30px;line-height:36px;font-weight:700;color:var(--ink);text-decoration:none;opacity:0;transform:translateY(48px);transition:all 700ms var(--ease)}
-.menu-open .overlay a{opacity:1;transform:translateY(0)}
-.menu-open .overlay a:nth-child(1){transition-delay:100ms}
-.menu-open .overlay a:nth-child(2){transition-delay:150ms}
-.menu-open .overlay a:nth-child(3){transition-delay:200ms}
-.menu-open .overlay a:nth-child(4){transition-delay:250ms}
-.menu-open .overlay a:nth-child(5){transition-delay:300ms}
-
-/* hero */
-.hero{padding:160px 0 64px;color:#C4C4C4;background:radial-gradient(ellipse 80% 60% at 75% 20%,#272727 0%,rgba(39,39,39,0) 70%),linear-gradient(180deg,#181818 0%,#000000 100%)}
-@media(min-width:900px){.hero{padding-bottom:96px}}
-.hero-grid{display:grid;gap:48px;align-items:center}
-@media(min-width:900px){.hero-grid{grid-template-columns:1.2fr 1fr}}
-.hero h1{font-size:36px;line-height:40px;max-width:680px;margin-bottom:16px;background:linear-gradient(to right,#FFFFFF,#9B9B9B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
-@media(min-width:600px){.hero h1{font-size:48px;line-height:1}}
-@media(min-width:1000px){.hero h1{font-size:60px;line-height:1}}
-.hero .sub{font-size:18px;line-height:28px;max-width:680px;margin-bottom:24px}
-.hero-proof{display:flex;align-items:center;gap:8px;margin-top:16px;font-size:14px;line-height:20px;color:#9B9B9B}
-.hero-proof i{color:#68D0FA;font-size:20px}
-.hero .eyebrow{color:#68D0FA}
-.hero .btn:hover{background:#2B6FE8}
-.panel{background:#1F1F1F;border:1px solid #313131;border-radius:16px;padding:24px}
-.panel h3{font-size:14px;line-height:20px;color:#9B9B9B;font-weight:600;margin-bottom:16px}
-.stat{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:12px 0}
-.stat + .stat{border-top:1px solid #313131}
-.stat b{font-size:36px;line-height:40px;color:#fff;font-weight:700}
-.stat span{font-size:14px;line-height:20px;color:#9B9B9B;text-align:right}
-
-/* cartões */
-.grid{display:grid;gap:16px;margin-top:32px}
-.grid.c3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-.grid.c4{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-.card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:24px;transition:all 700ms var(--ease)}
-.card:hover{transform:translateY(-4px)}
-.card i{display:block;font-size:30px;color:var(--royal);margin-bottom:16px}
-.notice{display:flex;gap:12px;margin-top:24px;background:var(--white);border:1px solid var(--gold);border-radius:12px;padding:16px}
-.notice i{font-size:24px;color:var(--gold);flex:none}
-.notice strong{color:var(--ink)}
-.alt{background:var(--alt)}
-.alt .card{background:var(--bg)}
-
-/* seções escuras */
-.dark,.dark-black{color:#C4C4C4}
-.dark{background:var(--dark)}
-.dark-black{background:var(--darker)}
-.dark h2,.dark h3,.dark-black h2,.dark-black p{color:#fff}
-.dark .eyebrow{color:#68D0FA}
-.dark .card{background:#1F1F1F;border-color:#313131}
-.dark .price .regime{color:#68D0FA}
-.dark .price .for,.dark .price .old,.dark .footnote{color:#9B9B9B}
-.dark .price .now{color:#fff}
-.dark .btn:hover{background:#2B6FE8}
-/* tagline */
-.tagline.dark-black{position:relative;overflow:hidden;background:var(--darker) url('assets/tagline-bg.webp') center/cover no-repeat}
-.tagline.dark-black::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.72)}
-.tagline .wrap{position:relative}
-.tagline p{font-size:30px;line-height:36px;font-weight:700;max-width:680px}
-@media(min-width:900px){.tagline p{font-size:36px;line-height:40px}}
-.js .tagline .w{opacity:.3;transition:opacity 700ms var(--ease)}
-.js .tagline .w.on{opacity:1}
-
-/* listas */
-.checks{list-style:none;display:grid;gap:16px;margin-top:32px;max-width:760px}
-.checks li{display:flex;gap:12px;align-items:flex-start}
-.checks i{flex:none;font-size:24px;color:var(--royal)}
-.steps{list-style:none;counter-reset:s;display:grid;gap:24px;margin-top:32px;max-width:760px}
-.steps li{counter-increment:s;display:flex;gap:16px;align-items:flex-start}
-.steps li::before{content:counter(s);flex:none;width:32px;height:32px;border-radius:9999px;background:var(--ink);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center}
-
-/* investimento */
-.price{display:flex;flex-direction:column;gap:8px}
-.price .regime{font-size:14px;line-height:20px;font-weight:700;color:var(--royal)}
-.price .for{font-size:14px;line-height:20px;color:var(--muted)}
-.price .old{font-size:16px;line-height:24px;color:var(--muted);text-decoration:line-through;margin-top:16px}
-.price .now{font-size:48px;line-height:1;font-weight:700;color:var(--ink);margin-bottom:16px}
-.price .btn{margin-top:auto}
-.footnote{font-size:14px;line-height:20px;color:var(--muted);margin-top:24px}
-
-/* cronograma */
-.timeline{list-style:none;margin-top:40px;padding-left:32px;position:relative;display:grid;gap:32px}
-.timeline::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;width:2px;background:var(--line)}
-.timeline li{position:relative}
-.timeline li::before{content:"";position:absolute;left:-32px;top:8px;width:14px;height:14px;border-radius:9999px;background:var(--white);border:3px solid var(--royal)}
-.timeline li.now::before{background:var(--gold);border-color:var(--gold)}
-.timeline b{display:flex;align-items:center;gap:12px;font-size:24px;line-height:32px;color:var(--ink);margin-bottom:4px}
-.badge{font-size:12px;line-height:16px;font-weight:600;background:var(--gold);color:var(--ink);border-radius:9999px;padding:2px 8px}
-
-/* diferencial */
-.dif{display:grid;gap:16px;margin-top:32px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-.dif p{display:flex;gap:12px;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:16px;color:var(--ink);font-weight:500}
-.dif i{flex:none;font-size:24px;color:var(--royal)}
-
-/* FAQ */
-.faq{margin-top:32px;display:grid;gap:8px}
-.faq details{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:0 16px}
-.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 0;font-weight:600;color:var(--ink)}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary i{flex:none;font-size:20px;transition:transform 700ms var(--ease)}
-.faq details[open] summary i{transform:rotate(180deg)}
-.faq details p{padding-bottom:16px}
-
-/* contato */
-.contact{background:var(--dark);color:#C4C4C4}
-.contact h2{color:#fff}
-.contact-grid{display:grid;gap:48px;align-items:start}
-@media(min-width:900px){.contact-grid{grid-template-columns:1fr 1fr}}
-.contact .checks i{color:#68D0FA}
-.form-card{background:var(--white);color:var(--text);border-radius:16px;padding:32px}
-.form-card h3{font-size:24px;line-height:32px;margin-bottom:24px}
-.field{margin-bottom:16px}
-.field label{display:block;font-size:14px;line-height:20px;font-weight:600;color:var(--ink);margin-bottom:4px}
-.field input,.field select{width:100%;font:inherit;font-size:16px;line-height:24px;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);transition:all 700ms var(--ease)}
-.field input:hover,.field select:hover{border-color:var(--muted)}
-.field input:focus-visible,.field select:focus-visible{outline:2px solid var(--royal);outline-offset:2px;border-color:var(--royal)}
-.field.has-error input,.field.has-error select{border-color:var(--error)}
-.field .msg{display:none;color:var(--error);font-size:14px;line-height:20px;margin-top:4px}
-.field.has-error .msg{display:block}
-.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.form-error{display:none;color:var(--error);font-size:14px;line-height:20px;margin-top:12px}
-.form-card .btn{width:100%}
-.form-note{font-size:12px;line-height:16px;color:var(--muted);margin-top:12px}
-.success{display:none;text-align:center;padding:24px 0}
-.success.show{display:block}
-.success i{font-size:48px;color:var(--royal);display:block;margin-bottom:16px}
-
-footer{background:var(--darker);color:#C4C4C4;padding:48px 0;font-size:14px;line-height:20px;text-align:center}
-.foot-logos{display:flex;align-items:center;justify-content:center;gap:32px;margin-bottom:24px}
-footer img{height:40px;width:auto;filter:brightness(0) invert(1)}
-footer a{color:#fff;text-decoration:underline;text-underline-offset:4px}
-
-/* revelação ao rolar */
-.js .reveal{opacity:0;transform:translateY(64px);filter:blur(12px);transition:all 900ms var(--ease)}
-.js .reveal.in{opacity:1;transform:translateY(0);filter:blur(0)}
-@media(prefers-reduced-motion:reduce){
-  *{transition:none!important;scroll-behavior:auto!important}
-  .js .reveal{opacity:1;transform:none;filter:none}
-  .js .tagline .w{opacity:1}
-}
-</style>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -243,458 +171,257 @@ fbq('track', 'PageView');
 fbq('track', 'ViewContent', {content_name: 'Diagnostico Tributario Assespro', content_category: 'Consultoria'});
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=549971842334998&ev=PageView&noscript=1" alt=""></noscript>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"O que é o diagnóstico tributário por CNPJ?","acceptedAnswer":{"@type":"Answer","text":"É um serviço de diagnóstico e orientação que avalia os impactos da Reforma Tributária no CNPJ de cada empresa, com relatório completo e recomendações estratégicas."}},
-{"@type":"Question","name":"O serviço inclui execução ou implementação?","acceptedAnswer":{"@type":"Answer","text":"Não. É um serviço exclusivo de diagnóstico e orientação. O foco é a inteligência e o mapeamento de riscos legislativos."}},
-{"@type":"Question","name":"Em quanto tempo recebo o relatório?","acceptedAnswer":{"@type":"Answer","text":"O relatório de diagnóstico tributário é apresentado em até 60 dias."}},
-{"@type":"Question","name":"Por quanto tempo tenho suporte depois do relatório?","acceptedAnswer":{"@type":"Answer","text":"Você conta com suporte para esclarecer dúvidas individuais por até 30 dias após a entrega do relatório."}},
-{"@type":"Question","name":"Quais regimes tributários são atendidos?","acceptedAnswer":{"@type":"Answer","text":"Empresas do Simples Nacional, do Lucro Presumido e do Lucro Real."}},
-{"@type":"Question","name":"Quanto custa o diagnóstico?","acceptedAnswer":{"@type":"Answer","text":"Para assinantes Assespro: R$ 1.500,00 no Simples Nacional, R$ 2.000,00 no Lucro Presumido e R$ 2.500,00 no Lucro Real."}},
-{"@type":"Question","name":"Como funcionam os encontros com as empresas associadas?","acceptedAnswer":{"@type":"Answer","text":"Há encontros mensais com as empresas associadas que aderiram à proposta, entre junho e dezembro de 2026, além de um grupo exclusivo no WhatsApp."}}
-]}
-</script>
 </head>
 <body>
-<a class="skip" href="#conteudo">Ir para o conteúdo</a>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-566F4WT" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<header class="top"><div class="wrap">
+ <div class="logos"><div class="lo">OPEN<small>SOLUÇÕES TRIBUTÁRIAS</small></div><div class="la">assespro<small>REGIONAL · BA</small></div></div>
+ <a class="btn navy" href="#contato">Fale conosco</a>
+</div></header>
 
-<nav class="nav" id="nav" aria-label="Principal">
-  <a class="nav-logo" href="#topo" aria-label="Open Soluções Tributárias e Assespro"><img src="assets/logo.svg" alt="Open Soluções Tributárias" width="86" height="32"><span class="nav-x" aria-hidden="true"></span><img class="nav-partner" src="assets/assespro-logo.png" alt="Confederação Assespro" width="122" height="32"></a>
-  <ul class="nav-links">
-    <li><a href="#proposta">Proposta</a></li>
-    <li><a href="#investimento">Investimento</a></li>
-    <li><a href="#cronograma">Cronograma</a></li>
-    <li><a href="#faq">Perguntas</a></li>
+<main>
+<section class="hero"><div class="wrap">
+ <div>
+  
+  <h1>Prepare sua empresa para a Reforma Tributária.</h1>
+  <p class="lead">Diagnóstico personalizado para avaliar o impacto real no seu CNPJ e orientar suas decisões estratégicas.</p>
+  <div style="display:flex;gap:16px;flex-wrap:wrap"><a class="btn navy" href="#proposta">Saiba mais</a><a class="btn" href="#contato">Fale conosco</a></div>
+ </div>
+ <img class="hero-img" src="assets/hero.jpg" alt="Executivo analisando documentos em escritório">
+</div></section>
+
+
+
+<section class="gray" id="proposta"><div class="wrap">
+ <h2>Proposta do serviço</h2>
+ 
+ <div class="cards">
+  <div class="card"><div class="ic">✦</div><p>Diagnóstico tributário personalizado com base na Reforma Tributária.</p></div>
+  <div class="card"><div class="ic">▤</div><p>Avaliação dos impactos das mudanças no CNPJ de cada empresa.</p></div>
+  <div class="card"><div class="ic">▮</div><p>Orientação estratégica sobre possíveis adequações.</p></div>
+ </div>
+</div></section>
+
+<div class="attn"><div class="wrap"><div class="box">
+ <div class="ic">!</div>
+ <div><b>Atenção!</b>Serviço exclusivo de diagnóstico e orientação. Não inclui execução ou implementação. Nosso foco é a inteligência e o mapeamento de riscos legislativos.</div>
+</div></div></div>
+
+<section id="incluido"><div class="wrap split">
+ <div>
+  <h2>O que está incluído</h2>
+  <ul class="list">
+   <li><span class="ic">✓</span>Identificação dos impactos da Reforma Tributária no CNPJ.</li>
+   <li><span class="ic">✓</span>Apresentação de relatório diagnóstico completo do perfil tributário atual.</li>
+   <li><span class="ic">✓</span>Recomendações estratégicas e medidas sugeridas.</li>
+   <li><span class="ic">✓</span>Identificação de oportunidades de planejamento tributário lícito.</li>
+   <li><span class="ic">✓</span>Apontamentos sobre <i>compliance</i> tributário no novo regime de tributação do consumo.</li>
   </ul>
-  <a class="btn sm" href="#contato">Fale conosco</a>
-  <button class="burger" id="burger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="overlay"><span></span><span></span></button>
-</nav>
-<div class="overlay" id="overlay">
-  <a href="#proposta">Proposta</a>
-  <a href="#investimento">Investimento</a>
-  <a href="#cronograma">Cronograma</a>
-  <a href="#faq">Perguntas</a>
-  <a href="#contato">Fale conosco</a>
-</div>
+  
+ </div>
+ <img class="pimg" src="assets/incluido.jpg" alt="Executivo com agenda em escritório">
+</div></section>
 
-<main id="conteudo">
-  <section class="hero" id="topo">
-    <div class="wrap hero-grid">
-      <div>
-        <p class="eyebrow"><i class="ph ph-seal-check"></i>Open Soluções Tributárias para assinantes Assespro</p>
-        <h1>Prepare sua empresa para a Reforma Tributária.</h1>
-        <p class="sub">Diagnóstico personalizado para avaliar o impacto real no seu CNPJ e orientar suas decisões estratégicas.</p>
-        <a class="btn" href="#contato">Quero o diagnóstico do meu CNPJ <i class="ph ph-arrow-right"></i></a>
-        <p class="hero-proof"><i class="ph ph-clock"></i>Relatório em até 60 dias e valor exclusivo para assinantes Assespro.</p>
-      </div>
-      <aside class="panel" aria-label="Resumo do serviço">
-        <h3>O diagnóstico em números</h3>
-        <div class="stat"><b>60</b><span>dias para receber o relatório</span></div>
-        <div class="stat"><b>30</b><span>dias de suporte após a entrega</span></div>
-        <div class="stat"><b>3</b><span>regimes atendidos: Simples, Presumido e Real</span></div>
-      </aside>
-    </div>
-  </section>
+<section class="gray" id="metodologia"><div class="wrap split">
+ <img class="pimg" style="order:2" src="assets/metodologia.jpg" alt="Executivo assinando documento">
+ <div>
+  <h2>Metodologia</h2>
+  <p>Receba um mapeamento completo e acompanhamento intelectual contínuo durante a fase de transição.</p>
+  <ul class="list">
+   <li><span class="ic">1</span>Análise detalhada das operações realizadas pela empresa.</li>
+   <li><span class="ic">2</span>Compreensão das características e peculiaridades do segmento.</li>
+   <li><span class="ic">3</span>Identificação dos impactos da Reforma Tributária na atividade exercida e nos tributos recolhidos.</li>
+   <li><span class="ic">4</span>Apontamentos específicos sobre o novo tratamento tributário previsto na legislação.</li>
+  </ul>
+ </div>
+</div></section>
 
-  <section id="proposta">
-    <div class="wrap">
-      <div class="reveal">
-        <p class="eyebrow">Proposta do serviço</p>
-        <h2>Do impacto geral da reforma ao impacto no seu CNPJ</h2>
-      </div>
-      <div class="grid c3 reveal">
-        <div class="card"><i class="ph ph-sparkle"></i><h3>Diagnóstico personalizado</h3><p>Diagnóstico tributário personalizado com base na Reforma Tributária.</p></div>
-        <div class="card"><i class="ph ph-chart-bar"></i><h3>Avaliação de impactos</h3><p>Avaliação dos impactos das mudanças no CNPJ de cada empresa.</p></div>
-        <div class="card"><i class="ph ph-compass"></i><h3>Orientação estratégica</h3><p>Orientação estratégica sobre possíveis adequações.</p></div>
-      </div>
-      <div class="notice reveal"><i class="ph ph-warning-circle"></i><p><strong>Atenção.</strong> Serviço exclusivo de diagnóstico e orientação. Não inclui execução ou implementação. Nosso foco é a inteligência e o mapeamento de riscos legislativos.</p></div>
-    </div>
-  </section>
+<section id="prazos"><div class="wrap">
+ <span class="tag" style="margin-bottom:12px;background:var(--blue);color:#fff;padding:6px 18px">FERRAMENTAS</span>
+ <h2>Prazos de entrega</h2>
+ 
+ <div class="grid2">
+  <div class="pz"><img src="assets/prazo-whatsapp.jpg" alt=""><div><h3>Grupo no WhatsApp</h3><p>Interação e discussão de temas relevantes através de grupo exclusivo no WhatsApp.</p></div></div>
+  <div class="pz"><img src="assets/prazo-relatorio.jpg" alt=""><div><h3>Relatório em 2 meses</h3><p>Apresentação do relatório de diagnóstico tributário em até 60 dias.</p></div></div>
+  <div class="pz"><img src="assets/prazo-networking.jpg" alt=""><div><h3>Networking</h3><p>Encontros mensais com as empresas associadas que aderiram à proposta (entre junho e dezembro de 2026).</p></div></div>
+  <div class="pz"><img src="assets/prazo-suporte.jpg" alt=""><div><h3>Suporte especializado</h3><p>Suporte para esclarecimento de dúvidas individuais até 30 dias após a entrega do relatório.</p></div></div>
+ </div>
+</div></section>
 
-  <section class="tagline dark-black" aria-label="Por que agora">
-    <div class="wrap">
-      <p id="tagline">Quanto antes você entende o impacto no seu CNPJ, mais tempo tem para decidir. A transição vai de 2026 a 2033, e cada ano conta.</p>
-    </div>
-  </section>
+<section class="gray" id="publico"><div class="wrap">
+ <h2>Público-alvo</h2>
+ 
+ <div class="pub">
+  <div class="pc"><img src="assets/publico-simples.jpg" alt=""><h3>Empresas do Simples Nacional</h3><a class="btn" href="#investimento">Contratar</a></div>
+  <div class="pc"><img src="assets/publico-presumido.jpg" alt=""><h3>Empresas do Lucro Presumido</h3><a class="btn" href="#investimento">Contratar</a></div>
+  <div class="pc"><img src="assets/publico-real.jpg" alt=""><h3>Empresas do Lucro Real</h3><a class="btn" href="#investimento">Contratar</a></div>
+ </div>
+</div></section>
 
-  <section>
-    <div class="wrap">
-      <div class="reveal">
-        <p class="eyebrow">O que está incluído</p>
-        <h2>O que você recebe no diagnóstico</h2>
-      </div>
-      <ul class="checks reveal">
-        <li><i class="ph ph-check-circle"></i>Identificação dos impactos da Reforma Tributária no CNPJ.</li>
-        <li><i class="ph ph-check-circle"></i>Apresentação de relatório diagnóstico completo do perfil tributário atual.</li>
-        <li><i class="ph ph-check-circle"></i>Recomendações estratégicas e medidas sugeridas.</li>
-        <li><i class="ph ph-check-circle"></i>Identificação de oportunidades de planejamento tributário lícito.</li>
-        <li><i class="ph ph-check-circle"></i>Apontamentos sobre compliance tributário no novo regime de tributação do consumo.</li>
-      </ul>
-    </div>
-  </section>
+<section id="cronograma"><div class="wrap">
+ <h2>Cronograma da Reforma Tributária</h2>
+ <p class="sub" style="margin-bottom:0">A transição vai de 2026 a 2033. Quanto antes você entende o impacto no seu CNPJ, mais tempo tem para decidir.</p>
+ <ol class="tl">
+  <li><b>2023</b><p>Emenda Constitucional 132 promulga a reforma.</p></li>
+  <li class="now"><em>Estamos aqui</em><b>2026</b><p>Ano de testes de CBS e IBS e de adaptação dos documentos fiscais.</p></li>
+  <li><b>2027</b><p>CBS substitui PIS e Cofins e o Imposto Seletivo começa. IBS segue em alíquota de teste até 2028.</p></li>
+  <li><b>2029 a 2032</b><p>ICMS e ISS diminuem a cada ano, enquanto o IBS aumenta.</p></li>
+  <li><b>2033</b><p>Fim do ICMS e do ISS. Novo sistema em vigor integralmente.</p></li>
+ </ol>
+ <p style="text-align:center;margin-top:40px"><a class="btn navy" href="#fale">Fale conosco</a></p>
+ <p class="tlnote">Calendário conforme a legislação vigente. Regulamentações complementares podem ajustar prazos e regras.</p>
+</div></section>
 
-  <section class="alt">
-    <div class="wrap">
-      <div class="reveal">
-        <p class="eyebrow">Metodologia</p>
-        <h2>Como o diagnóstico é feito</h2>
-        <p class="lead">Receba um mapeamento completo e acompanhamento intelectual contínuo durante a fase de transição.</p>
-      </div>
-      <ol class="steps reveal">
-        <li>Análise detalhada das operações realizadas pela empresa.</li>
-        <li>Compreensão das características e peculiaridades do segmento.</li>
-        <li>Identificação dos impactos da Reforma Tributária na atividade exercida e nos tributos recolhidos.</li>
-        <li>Apontamentos específicos sobre o novo tratamento tributário previsto na legislação.</li>
-      </ol>
-    </div>
-  </section>
+<section class="price" id="investimento"><div class="wrap">
+ <h2>Investimento</h2>
+ <div class="tag">Valor exclusivo para assinantes Assespro</div>
+ <div class="pr">
+  <div class="pbox"><h3>SIMPLES NACIONAL</h3><div class="old">R$ 2.000,00</div><div class="now"><small>R$</small>1.500<small>,00</small></div><a class="btn" href="#contato" data-plano="Simples Nacional">Contratar diagnóstico</a></div>
+  <div class="pbox hot"><h3>LUCRO PRESUMIDO</h3><div class="old">R$ 2.500,00</div><div class="now"><small>R$</small>2.000<small>,00</small></div><a class="btn" href="#contato" data-plano="Lucro Presumido">Contratar diagnóstico</a></div>
+  <div class="pbox"><h3>LUCRO REAL</h3><div class="old">R$ 3.000,00</div><div class="now"><small>R$</small>2.500<small>,00</small></div><a class="btn" href="#contato" data-plano="Lucro Real">Contratar diagnóstico</a></div>
+ </div>
+ <p class="note">Condição especial: valor significativamente inferior ao praticado para análises individuais por CNPJ.</p>
+</div></section>
 
-  <section>
-    <div class="wrap">
-      <div class="reveal">
-        <p class="eyebrow">Prazos e acompanhamento</p>
-        <h2>O que acontece depois que você contrata</h2>
-      </div>
-      <div class="grid c4 reveal">
-        <div class="card"><i class="ph ph-whatsapp-logo"></i><h3>Grupo no WhatsApp</h3><p>Interação e discussão de temas relevantes através de grupo exclusivo no WhatsApp.</p></div>
-        <div class="card"><i class="ph ph-file-text"></i><h3>Relatório em 2 meses</h3><p>Apresentação do relatório de diagnóstico tributário em até 60 dias.</p></div>
-        <div class="card"><i class="ph ph-users-three"></i><h3>Networking</h3><p>Encontros mensais com as empresas associadas que aderiram à proposta (entre junho e dezembro de 2026).</p></div>
-        <div class="card"><i class="ph ph-headset"></i><h3>Suporte especializado</h3><p>Suporte para esclarecimento de dúvidas individuais até 30 dias após a entrega do relatório.</p></div>
-      </div>
-    </div>
-  </section>
+<section class="gray" id="diferencial"><div class="wrap">
+ <h2>Diferencial</h2>
+ <div class="dif">
+  <div>Diagnóstico individualizado por CNPJ.</div>
+  <div>Clareza total: foco em análise e orientação (sem execução).</div>
+  <div>Atualização contínua por meio das palestras mensais.</div>
+  <div>Tradução da Reforma Tributária para a realidade prática da empresa.</div>
+  <div>Identificação de riscos, oportunidades e pontos de melhoria.</div>
+  <div>Integração entre visão estratégica, planejamento tributário e compliance.</div>
+ </div>
+</div></section>
 
-  <section class="dark" id="investimento">
-    <div class="wrap">
-      <div class="reveal">
-        <p class="eyebrow">Investimento</p>
-        <h2>Valor exclusivo para assinantes Assespro</h2>
-        <p class="lead">Escolha o valor conforme o regime tributário da sua empresa.</p>
-      </div>
-      <div class="grid c3 reveal">
-        <div class="card price"><span class="regime">SIMPLES NACIONAL</span><span class="for">Empresas do Simples Nacional</span><span class="old">R$ 2.000,00</span><span class="now">R$ 1.500,00</span><a class="btn" href="#contato" data-regime="Simples Nacional">Contratar diagnóstico</a></div>
-        <div class="card price"><span class="regime">LUCRO PRESUMIDO</span><span class="for">Empresas do Lucro Presumido</span><span class="old">R$ 2.500,00</span><span class="now">R$ 2.000,00</span><a class="btn" href="#contato" data-regime="Lucro Presumido">Contratar diagnóstico</a></div>
-        <div class="card price"><span class="regime">LUCRO REAL</span><span class="for">Empresas do Lucro Real</span><span class="old">R$ 3.000,00</span><span class="now">R$ 2.500,00</span><a class="btn" href="#contato" data-regime="Lucro Real">Contratar diagnóstico</a></div>
-      </div>
-      <p class="footnote">Condição especial: valor significativamente inferior ao praticado para análises individuais por CNPJ.</p>
-    </div>
-  </section>
 
-  <section id="cronograma">
-    <div class="wrap">
-      <div class="reveal">
-        <p class="eyebrow">Cronograma da Reforma Tributária</p>
-        <h2>A transição vai de 2026 a 2033</h2>
-        <p class="lead">Quanto antes você entende o impacto no seu CNPJ, mais tempo tem para decidir.</p>
-      </div>
-      <ol class="timeline reveal">
-        <li><b>2023</b>Emenda Constitucional 132 promulga a reforma.</li>
-        <li class="now"><b>2026 <span class="badge">Estamos aqui</span></b>Ano de testes de CBS e IBS e de adaptação dos documentos fiscais.</li>
-        <li><b>2027</b>CBS substitui PIS e Cofins e o Imposto Seletivo começa. IBS segue em alíquota de teste até 2028.</li>
-        <li><b>2029 a 2032</b>ICMS e ISS diminuem a cada ano, enquanto o IBS aumenta.</li>
-        <li><b>2033</b>Fim do ICMS e do ISS. Novo sistema em vigor integralmente.</li>
-      </ol>
-      <p class="footnote reveal">Calendário conforme a legislação vigente. Regulamentações complementares podem ajustar prazos e regras.</p>
-    </div>
-  </section>
 
-  <section class="alt">
-    <div class="wrap">
-      <div class="reveal">
-        <p class="eyebrow">Diferencial</p>
-        <h2>Por que este diagnóstico é diferente</h2>
-      </div>
-      <div class="dif reveal">
-        <p><i class="ph ph-identification-card"></i>Diagnóstico individualizado por CNPJ.</p>
-        <p><i class="ph ph-eye"></i>Clareza total: foco em análise e orientação (sem execução).</p>
-        <p><i class="ph ph-microphone-stage"></i>Atualização contínua por meio das palestras mensais.</p>
-        <p><i class="ph ph-translate"></i>Tradução da Reforma Tributária para a realidade prática da empresa.</p>
-        <p><i class="ph ph-magnifying-glass"></i>Identificação de riscos, oportunidades e pontos de melhoria.</p>
-        <p><i class="ph ph-intersect"></i>Integração entre visão estratégica, planejamento tributário e compliance.</p>
-      </div>
-    </div>
-  </section>
 
-  <section id="faq">
-    <div class="wrap">
-      <div class="reveal">
-        <p class="eyebrow">Perguntas frequentes</p>
-        <h2>Dúvidas antes de contratar</h2>
-      </div>
-      <div class="faq reveal">
-        <details><summary>O que é o diagnóstico tributário por CNPJ?<i class="ph ph-caret-down"></i></summary><p>É um serviço de diagnóstico e orientação que avalia os impactos da Reforma Tributária no CNPJ de cada empresa, com relatório completo e recomendações estratégicas.</p></details>
-        <details><summary>O serviço inclui execução ou implementação?<i class="ph ph-caret-down"></i></summary><p>Não. É um serviço exclusivo de diagnóstico e orientação. O foco é a inteligência e o mapeamento de riscos legislativos.</p></details>
-        <details><summary>Em quanto tempo recebo o relatório?<i class="ph ph-caret-down"></i></summary><p>O relatório de diagnóstico tributário é apresentado em até 60 dias.</p></details>
-        <details><summary>Por quanto tempo tenho suporte depois do relatório?<i class="ph ph-caret-down"></i></summary><p>Você conta com suporte para esclarecer dúvidas individuais por até 30 dias após a entrega do relatório.</p></details>
-        <details><summary>Quais regimes tributários são atendidos?<i class="ph ph-caret-down"></i></summary><p>Empresas do Simples Nacional, do Lucro Presumido e do Lucro Real.</p></details>
-        <details><summary>Quanto custa o diagnóstico?<i class="ph ph-caret-down"></i></summary><p>Para assinantes Assespro: R$ 1.500,00 no Simples Nacional, R$ 2.000,00 no Lucro Presumido e R$ 2.500,00 no Lucro Real.</p></details>
-        <details><summary>Como funcionam os encontros com as empresas associadas?<i class="ph ph-caret-down"></i></summary><p>Há encontros mensais com as empresas associadas que aderiram à proposta, entre junho e dezembro de 2026, além de um grupo exclusivo no WhatsApp.</p></details>
-      </div>
-    </div>
-  </section>
-
-  <section class="contact" id="contato">
-    <div class="wrap contact-grid">
-      <div class="reveal">
-        <h2>Descubra o impacto da Reforma Tributária no seu CNPJ</h2>
-        <p class="lead">Diagnóstico personalizado para avaliar o impacto real e orientar suas decisões estratégicas.</p>
-        <ul class="checks">
-          <li><i class="ph ph-check-circle"></i>Relatório de diagnóstico tributário em até 60 dias.</li>
-          <li><i class="ph ph-check-circle"></i>Suporte especializado por até 30 dias após a entrega.</li>
-          <li><i class="ph ph-check-circle"></i>Valor exclusivo para assinantes Assespro.</li>
-        </ul>
-      </div>
-
-      <div class="form-card reveal">
-        <div id="form-wrap">
-          <h3>Fale conosco</h3>
-          <form id="lead-form" novalidate>
-            <div class="field" id="f-name"><label for="name">Seu nome</label><input id="name" name="name" type="text" autocomplete="name" required><span class="msg">Informe seu nome completo.</span></div>
-            <div class="field" id="f-email"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required><span class="msg">Informe um email válido.</span></div>
-            <div class="field" id="f-company"><label for="company">Empresa</label><input id="company" name="company" type="text" autocomplete="organization" required><span class="msg">Informe o nome da empresa.</span></div>
-            <div class="field" id="f-regime"><label for="regime">Regime tributário</label>
-              <select id="regime" name="regime" required>
-                <option value="">Selecione</option>
-                <option>Simples Nacional</option>
-                <option>Lucro Presumido</option>
-                <option>Lucro Real</option>
-              </select><span class="msg">Selecione o regime tributário.</span></div>
-            <div class="field" id="f-phone"><label for="phone">WhatsApp</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(71) 90000 0000" required><span class="msg">Informe um WhatsApp com DDD.</span></div>
-            <div class="hp" aria-hidden="true"><label>Não preencha<input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
-            <button type="submit" class="btn" id="submit-btn">Quero o diagnóstico do meu CNPJ</button>
-            <p class="form-error" id="form-error" role="alert"></p>
-            <p class="form-note">Usamos seus dados apenas para retornar este contato.</p>
-          </form>
-        </div>
-        <div class="success" id="success" role="status">
-          <i class="ph ph-check-circle"></i>
-          <h3>Recebemos seus dados.</h3>
-          <p>Nossa equipe entrará em contato em breve pelo WhatsApp ou email informado.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+<section class="gray" id="fale"><div class="wrap fale-grid"><div class="fale-txt">
+ <h2>Descubra o impacto da Reforma Tributária no seu CNPJ</h2>
+ <p>Diagnóstico personalizado para avaliar o impacto real e orientar suas decisões estratégicas.</p>
+ <ul class="checks" style="margin-bottom:0">
+  <li>Relatório de diagnóstico tributário em até 60 dias.</li>
+  <li>Suporte especializado por até 30 dias após a entrega.</li>
+  <li>Valor exclusivo para assinantes Assespro.</li>
+ </ul>
+</div><form class="form" id="contato">
+  <h3>Fale conosco</h3>
+  
+  <label for="n">Seu nome</label><input id="n" required autocomplete="name">
+  <label for="m">Email</label><input id="m" type="email" required autocomplete="email">
+  <label for="e">Empresa</label><input id="e" required autocomplete="organization">
+  <label for="r">Regime tributário</label>
+  <select id="r"><option>Simples Nacional</option><option>Lucro Presumido</option><option>Lucro Real</option><option>Ainda não sei</option></select>
+  <label for="w">WhatsApp</label><input id="w" type="tel" inputmode="tel" placeholder="(71) 90000-0000" autocomplete="tel">
+  <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"><label for="site">Não preencha</label><input id="site" tabindex="-1" autocomplete="off"></div>
+  <button class="btn" type="submit">Fale conosco</button>
+  <p id="fmsg" role="alert" style="display:none;margin-top:12px;font-size:15px;line-height:1.4"></p>
+  
+ </form></div></section>
 </main>
 
-<footer>
-  <div class="wrap">
-    <div class="foot-logos">
-      <img src="assets/logo.svg" alt="Open Soluções Tributárias" width="107" height="40">
-      <img src="assets/assespro-logo.png" alt="Confederação Assespro" width="153" height="40">
-    </div>
-    <p>Copyright © Open Soluções Tributárias. Todos os direitos reservados.</p>
-    <p style="margin-top:8px"><a href="https://opensolucoestributarias.com.br" rel="noopener">Termos de Uso</a> · <a href="https://opensolucoestributarias.com.br" rel="noopener">Políticas de Privacidade</a> · <a href="https://opensolucoestributarias.com.br" rel="noopener">Políticas de Cookies</a></p>
-  </div>
-</footer>
+<footer><div class="wrap">
+ <div class="lo">OPEN<small>SOLUÇÕES TRIBUTÁRIAS</small></div>
+ <span>Copyright © Open Soluções Tributárias – Todos os direitos reservados. <a href="#">Termos de Uso</a> | <a href="#">Políticas de Privacidade</a> | <a href="#">Políticas de Cookies</a></span>
+</div></footer>
+
+<a class="wa" id="wa" href="#contato">Fale conosco</a>
 
 <script src="/assets/js/lead-form.js?v=2026-09-22"></script>
 <script>
-(function () {
-  'use strict';
+(function(){
+ // Para ativar o botão flutuante via WhatsApp, informe o número comercial (DDI+DDD+número).
+ var WA_NUMBER="";
+ var RD_TOKEN="fde56b5029b7f481d3f10fecb3f1de85";
+ var RD_IDENTIFIER="diagnostico-tributario-reforma-tributaria-assespro";
+ var MAIL_FORM="diagnostico-tributario-assespro";
+ var MAIL_ENDPOINT="/enviar-lead.php";
+ var UTM_KEYS=["utm_source","utm_medium","utm_campaign","utm_term","utm_content","placement"];
+ var $=function(i){return document.getElementById(i)};
+ var v=function(i){return $(i).value.trim()};
 
-  var RD_TOKEN = 'fde56b5029b7f481d3f10fecb3f1de85';
-  var RD_IDENTIFIER = 'diagnostico-tributario-reforma-tributaria-assespro';
-  var MAIL_FORM = 'diagnostico-tributario-assespro';
-  var MAIL_ENDPOINT = '/enviar-lead.php';
-  var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'placement'];
+ var wa=$("wa");
+ if(WA_NUMBER){wa.href="https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent("Olá! Quero saber mais sobre o diagnóstico da Reforma Tributária.");wa.target="_blank";wa.rel="noopener"}
 
-  var form = document.getElementById('lead-form');
-  var btn = document.getElementById('submit-btn');
-  var errorBox = document.getElementById('form-error');
-  var root = document.documentElement;
-  var burger = document.getElementById('burger');
+ // Com <base href>, "#x" recarregaria a página: rolamos manualmente.
+ document.addEventListener("click",function(e){
+  var a=e.target.closest&&e.target.closest('a[href^="#"]');
+  if(!a)return;
+  var id=a.getAttribute("href").slice(1);
+  var t=id&&$(id);
+  if(!t)return;
+  e.preventDefault();
+  t.scrollIntoView({behavior:"smooth"});
+ });
 
-  // --- Menu ilha ---
-  function setMenu(open) {
-    root.classList.toggle('menu-open', open);
-    burger.setAttribute('aria-expanded', String(open));
-    burger.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
-    document.body.style.overflow = open ? 'hidden' : '';
-  }
-  burger.addEventListener('click', function () { setMenu(!root.classList.contains('menu-open')); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+ document.querySelectorAll("[data-plano]").forEach(function(a){
+  a.addEventListener("click",function(){$("r").value=a.getAttribute("data-plano")});
+ });
 
-  // Âncoras: com <base href> o "#x" recarregaria a página; rolamos manualmente.
-  document.addEventListener('click', function (e) {
-    var a = e.target.closest && e.target.closest('a[href^="#"]');
-    if (!a) return;
-    var target = document.getElementById(a.getAttribute('href').slice(1));
-    if (!target) return;
-    e.preventDefault();
-    setMenu(false);
-    if (a.dataset.regime) document.getElementById('regime').value = a.dataset.regime;
-    target.scrollIntoView({ behavior: 'smooth' });
+ // UTMs persistidas na sessão
+ var params=new URLSearchParams(window.location.search),utm={};
+ UTM_KEYS.forEach(function(k){
+  try{var x=params.get(k);if(x)sessionStorage.setItem("open_"+k,x);utm[k]=sessionStorage.getItem("open_"+k)||""}
+  catch(err){utm[k]=params.get(k)||""}
+ });
+
+ // Máscara do WhatsApp
+ $("w").addEventListener("input",function(e){
+  var d=e.target.value.replace(/\D/g,"").slice(0,11),o=d;
+  if(d.length>2){o="("+d.slice(0,2)+") ";o+=d.length>6?(d.length===11?d.slice(2,7)+"-"+d.slice(7):d.slice(2,6)+"-"+d.slice(6)):d.slice(2)}
+  e.target.value=o;
+ });
+
+ var msg=$("fmsg");
+ function say(text,ok){msg.textContent=text;msg.style.color=ok?"#1a7f37":"#c0392b";msg.style.display="block"}
+
+ function sendEmail(){
+  var p={form:MAIL_FORM,name:v("n"),email:v("m"),company:v("e"),regime:v("r"),phone:v("w"),website:v("site"),page:location.href};
+  UTM_KEYS.forEach(function(k){if(utm[k])p[k]=utm[k]});
+  return fetch(MAIL_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(p)})
+   .then(function(r){if(!r.ok)throw new Error("Email status "+r.status)});
+ }
+ function sendRd(){
+  var b={token_rdstation:RD_TOKEN,identificador:RD_IDENTIFIER,name:v("n"),email:v("m"),mobile_phone:v("w"),company_name:v("e"),
+   cf_regime_tributario:v("r"),traffic_source:utm.utm_source,traffic_medium:utm.utm_medium,traffic_campaign:utm.utm_campaign,
+   traffic_value:utm.utm_term,traffic_content:utm.utm_content,cf_utm_placement:utm.placement};
+  Object.keys(b).forEach(function(k){if(!b[k])delete b[k]});
+  return window.OpenLeadForms.postRdConversion(b);
+ }
+ function trackLead(){
+  var id=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():String(Date.now());
+  if(typeof window.fbq==="function")window.fbq("track","Lead",{},{eventID:id});
+  var m=document.cookie.match(/(?:^|; )_fbp=([^;]*)/);
+  fetch("/capi.php",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
+   event_name:"Lead",event_id:id,event_source_url:location.href,name:v("n"),email:v("m"),phone:v("w"),fbp:m?decodeURIComponent(m[1]):null})}).catch(function(){});
+ }
+
+ $("contato").addEventListener("submit",function(ev){
+  ev.preventDefault();
+  msg.style.display="none";
+  var digits=v("w").replace(/\D/g,"");
+  if(v("n").length<3){say("Informe seu nome completo.");$("n").focus();return}
+  if(!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(v("m"))){say("Informe um email válido.");$("m").focus();return}
+  if(!v("e")){say("Informe o nome da empresa.");$("e").focus();return}
+  if(digits&&(digits.length<10||digits.length>11)){say("Informe o WhatsApp com DDD.");$("w").focus();return}
+
+  var form=ev.target,btn=form.querySelector('[type="submit"]'),label=btn.textContent;
+  btn.disabled=true;btn.textContent="Enviando...";
+
+  // Email e RD Station em paralelo: basta um confirmar para o lead não se perder.
+  var jobs=[sendEmail(),sendRd()].map(function(p,i){
+   return p.then(function(){return true},function(err){console.error("["+(i===0?"Email":"RD Station")+"] falha no envio:",err);return false});
   });
-
-  // Item atual no menu
-  var links = document.querySelectorAll('.nav-links a');
-  if ('IntersectionObserver' in window) {
-    var spy = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (!en.isIntersecting) return;
-        links.forEach(function (l) {
-          l.setAttribute('aria-current', l.getAttribute('href') === '#' + en.target.id ? 'true' : 'false');
-        });
-      });
-    }, { rootMargin: '-40% 0px -55% 0px' });
-    ['proposta', 'investimento', 'cronograma', 'faq'].forEach(function (id) {
-      var el = document.getElementById(id);
-      if (el) spy.observe(el);
-    });
-
-    // Revelação ao rolar
-    var rev = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add('in'); rev.unobserve(en.target); }
-      });
-    }, { rootMargin: '0px 0px -10% 0px' });
-    document.querySelectorAll('.reveal').forEach(function (el) { rev.observe(el); });
-
-    // Tagline: palavra por palavra
-    var tag = document.getElementById('tagline');
-    var words = tag.textContent.trim().split(/\s+/);
-    tag.innerHTML = '';
-    words.forEach(function (w, i) {
-      var s = document.createElement('span');
-      s.className = 'w';
-      s.textContent = w;
-      tag.appendChild(s);
-      if (i < words.length - 1) tag.appendChild(document.createTextNode(' '));
-    });
-    var wordObs = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        var passed = en.boundingClientRect.top < 0;
-        en.target.classList.toggle('on', en.isIntersecting || passed);
-      });
-    }, { rootMargin: '0px 0px -40% 0px' });
-    tag.querySelectorAll('.w').forEach(function (s) { wordObs.observe(s); });
-  } else {
-    root.classList.remove('js');
-  }
-
-  // --- UTMs persistidas na sessão ---
-  var params = new URLSearchParams(window.location.search);
-  var utm = {};
-  UTM_KEYS.forEach(function (k) {
-    try {
-      var v = params.get(k);
-      if (v) sessionStorage.setItem('open_' + k, v);
-      utm[k] = sessionStorage.getItem('open_' + k) || '';
-    } catch (err) { utm[k] = params.get(k) || ''; }
+  Promise.all(jobs).then(function(ok){
+   if(ok[0]||ok[1]){trackLead();form.reset();say("Recebemos seus dados. Nossa equipe entrará em contato em breve.",true)}
+   else{say("Não foi possível enviar seus dados agora. Verifique sua conexão e tente novamente.")}
+   btn.disabled=false;btn.textContent=label;
   });
-
-  // Máscara de telefone
-  document.getElementById('phone').addEventListener('input', function (e) {
-    var v = e.target.value.replace(/\D/g, '').slice(0, 11), out = v;
-    if (v.length > 2) {
-      out = '(' + v.slice(0, 2) + ') ';
-      out += v.length > 6 ? (v.length === 11 ? v.slice(2, 7) + '-' + v.slice(7) : v.slice(2, 6) + '-' + v.slice(6)) : v.slice(2);
-    }
-    e.target.value = out;
-  });
-
-  function val(id) { return document.getElementById(id).value.trim(); }
-  function mark(id, bad) { document.getElementById('f-' + id).classList.toggle('has-error', bad); return !bad; }
-
-  function validate() {
-    var digits = val('phone').replace(/\D/g, '');
-    var r = [
-      mark('name', val('name').length < 3),
-      mark('email', !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(val('email'))),
-      mark('company', val('company') === ''),
-      mark('regime', val('regime') === ''),
-      mark('phone', digits.length < 10 || digits.length > 11)
-    ];
-    return r.every(Boolean);
-  }
-
-  function sendEmail() {
-    var payload = {
-      form: MAIL_FORM,
-      name: val('name'), email: val('email'), company: val('company'),
-      regime: val('regime'), phone: val('phone'), website: val('website'),
-      page: window.location.href
-    };
-    UTM_KEYS.forEach(function (k) { if (utm[k]) payload[k] = utm[k]; });
-    return fetch(MAIL_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    }).then(function (res) {
-      if (!res.ok) throw new Error('Email status ' + res.status);
-    });
-  }
-
-  function sendRd() {
-    var body = {
-      token_rdstation: RD_TOKEN,
-      identificador: RD_IDENTIFIER,
-      name: val('name'),
-      email: val('email'),
-      mobile_phone: val('phone'),
-      company_name: val('company'),
-      cf_regime_tributario: val('regime'),
-      traffic_source: utm.utm_source,
-      traffic_medium: utm.utm_medium,
-      traffic_campaign: utm.utm_campaign,
-      traffic_value: utm.utm_term,
-      traffic_content: utm.utm_content,
-      cf_utm_placement: utm.placement
-    };
-    Object.keys(body).forEach(function (k) { if (!body[k]) delete body[k]; });
-    return window.OpenLeadForms.postRdConversion(body);
-  }
-
-  function trackLead() {
-    var eventId = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now());
-    if (typeof window.fbq === 'function') window.fbq('track', 'Lead', {}, { eventID: eventId });
-    var m = document.cookie.match(/(?:^|; )_fbp=([^;]*)/);
-    fetch('/capi.php', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        event_name: 'Lead', event_id: eventId, event_source_url: window.location.href,
-        name: val('name'), email: val('email'), phone: val('phone'),
-        fbp: m ? decodeURIComponent(m[1]) : null
-      })
-    }).catch(function () {});
-  }
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    errorBox.style.display = 'none';
-    if (!validate()) {
-      var first = form.querySelector('.has-error input, .has-error select');
-      if (first) first.focus();
-      return;
-    }
-    var original = btn.textContent;
-    btn.disabled = true;
-    btn.textContent = 'Enviando';
-
-    // Email e RD Station em paralelo; basta um dos dois confirmar para o
-    // lead não se perder. Só mostramos erro se ambos falharem.
-    var results = [sendEmail(), sendRd()].map(function (p, i) {
-      return p.then(function () { return true; }, function (err) {
-        console.error('[' + (i === 0 ? 'Email' : 'RD Station') + '] falha no envio:', err);
-        return false;
-      });
-    });
-
-    Promise.all(results).then(function (ok) {
-      if (ok[0] || ok[1]) {
-        trackLead();
-        document.getElementById('form-wrap').style.display = 'none';
-        document.getElementById('success').classList.add('show');
-      } else {
-        errorBox.textContent = 'Não foi possível enviar seus dados agora. Verifique sua conexão e tente novamente.';
-        errorBox.style.display = 'block';
-      }
-      btn.disabled = false;
-      btn.textContent = original;
-    });
-  });
+ });
 })();
 </script>
+
 </body>
 </html>
