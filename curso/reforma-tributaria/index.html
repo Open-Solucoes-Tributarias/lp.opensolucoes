@@ -92,15 +92,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="hero-badges" data-reveal style="transition-delay: 0.4s;">
         <div class="hero-info-item">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          <span>18 a 21 de agosto · 2026</span>
+          <span data-hero-date>10 a 13 de novembro · 2026</span>
         </div>
         <div class="hero-info-item">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <span>08h às 12h · 4 dias intensivos</span>
+          <span data-hero-time>08h às 12h · 4 dias intensivos</span>
         </div>
         <div class="hero-info-item">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 10l4.553-2.069A1 1 0 0121 8.87V15.13a1 1 0 01-1.447.9L15 14M3 8h12v8H3z"/></svg>
-          <span>Ao vivo · Online</span>
+          <span data-hero-mode>Ao vivo · Online</span>
         </div>
       </div>
 
@@ -118,9 +118,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <!-- BOTTOM: Centered Countdown -->
   <div class="container hero-countdown-bottom" style="display: flex; justify-content: center; margin-top: 48px; position: relative; z-index: 3;">
-    <div class="hero-countdown-pill" data-reveal style="transition-delay: 0.6s;">
-      <span class="cd-label">PRÓXIMA TURMA EM</span>
-      <div class="countdown" data-countdown="2026-08-18T08:00:00-03:00" style="margin-top: 0;">
+    <div class="hero-countdown-pill" data-hero-pill data-reveal style="transition-delay: 0.6s;">
+      <span class="cd-label" data-hero-label>PRÓXIMA TURMA EM</span>
+      <div class="countdown" data-countdown="2026-11-10T08:00:00-03:00" data-hero-countdown style="margin-top: 0;">
         <div class="cd-unit"><div class="n" data-cd-days>--</div><div class="l">dias</div></div>
         <div class="cd-unit"><div class="n" data-cd-hours>--</div><div class="l">hrs</div></div>
         <div class="cd-unit"><div class="n" data-cd-mins>--</div><div class="l">min</div></div>
@@ -500,59 +500,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
     <div data-reveal class="grid-datas">
-      <!-- Agosto -->
-      <div class="turma-card online" data-reveal>
-        <div class="turma-name">Agosto · Online</div>
-        <div class="turma-date">18 a 21/08</div>
-        <div class="turma-type">Online</div>
-        <div class="cd-label">Faltam para o início</div>
-        <div class="countdown" data-countdown="2026-08-18T08:00:00-03:00">
-          <div class="cd-unit"><div class="n" data-cd-days>--</div><div class="l">dias</div></div>
-          <div class="cd-unit"><div class="n alt" data-cd-hours>--</div><div class="l">hrs</div></div>
-          <div class="cd-unit"><div class="n alt" data-cd-mins>--</div><div class="l">min</div></div>
-          <div class="cd-unit"><div class="n blue" data-cd-secs>--</div><div class="l">seg</div></div>
-        </div>
-      </div>
-      <div class="turma-card presencial" data-reveal>
-        <div class="turma-name">Agosto · Presencial</div>
-        <div class="turma-date">26 e 27/08</div>
-        <div class="turma-type">Presencial — Vitória</div>
-        <div class="cd-label">Faltam para o início</div>
-        <div class="countdown" data-countdown="2026-08-26T08:00:00-03:00">
-          <div class="cd-unit"><div class="n" data-cd-days>--</div><div class="l">dias</div></div>
-          <div class="cd-unit"><div class="n alt" data-cd-hours>--</div><div class="l">hrs</div></div>
-          <div class="cd-unit"><div class="n alt" data-cd-mins>--</div><div class="l">min</div></div>
-          <div class="cd-unit"><div class="n blue" data-cd-secs>--</div><div class="l">seg</div></div>
-        </div>
-      </div>
-      <!-- Setembro -->
-      <div class="turma-card online" data-reveal>
-        <div class="turma-name">Setembro · Online</div>
-        <div class="turma-date">22 a 25/09</div>
-        <div class="turma-type">Online</div>
-        <div class="cd-label">Faltam para o início</div>
-        <div class="countdown" data-countdown="2026-09-22T08:00:00-03:00">
-          <div class="cd-unit"><div class="n" data-cd-days>--</div><div class="l">dias</div></div>
-          <div class="cd-unit"><div class="n alt" data-cd-hours>--</div><div class="l">hrs</div></div>
-          <div class="cd-unit"><div class="n alt" data-cd-mins>--</div><div class="l">min</div></div>
-          <div class="cd-unit"><div class="n blue" data-cd-secs>--</div><div class="l">seg</div></div>
-        </div>
-      </div>
-      <!-- Outubro -->
-      <div class="turma-card online" data-reveal>
-        <div class="turma-name">Outubro · Online</div>
-        <div class="turma-date">27 a 30/10</div>
-        <div class="turma-type">Online</div>
-        <div class="cd-label">Faltam para o início</div>
-        <div class="countdown" data-countdown="2026-10-27T08:00:00-03:00">
-          <div class="cd-unit"><div class="n" data-cd-days>--</div><div class="l">dias</div></div>
-          <div class="cd-unit"><div class="n alt" data-cd-hours>--</div><div class="l">hrs</div></div>
-          <div class="cd-unit"><div class="n alt" data-cd-mins>--</div><div class="l">min</div></div>
-          <div class="cd-unit"><div class="n blue" data-cd-secs>--</div><div class="l">seg</div></div>
-        </div>
-      </div>
-      <!-- Novembro -->
-      <div class="turma-card online" data-reveal>
+      <!-- Turmas: o script oculta automaticamente as que já terminaram (data-end). -->
+      <div class="turma-card online" data-reveal data-turma data-start="2026-11-10T08:00:00-03:00" data-end="2026-11-13T23:59:59-03:00" data-hero-date="10 a 13 de novembro · 2026" data-hero-time="08h às 12h · 4 dias intensivos" data-hero-mode="Ao vivo · Online">
         <div class="turma-name">Novembro · Online</div>
         <div class="turma-date">10 a 13/11</div>
         <div class="turma-type">Online</div>
@@ -564,13 +513,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="cd-unit"><div class="n blue" data-cd-secs>--</div><div class="l">seg</div></div>
         </div>
       </div>
-      <!-- Dezembro -->
-      <div class="turma-card online" data-reveal>
+      <div class="turma-card online" data-reveal data-turma data-start="2026-12-01T08:00:00-03:00" data-end="2026-12-04T23:59:59-03:00" data-hero-date="01 a 04 de dezembro · 2026" data-hero-time="08h às 12h · 4 dias intensivos" data-hero-mode="Ao vivo · Online">
         <div class="turma-name">Dezembro · Online</div>
         <div class="turma-date">01 a 04/12</div>
-        <div class="turma-type">Online</div>
+        <div class="turma-type">Online e ao vivo</div>
         <div class="cd-label">Faltam para o início</div>
         <div class="countdown" data-countdown="2026-12-01T08:00:00-03:00">
+          <div class="cd-unit"><div class="n" data-cd-days>--</div><div class="l">dias</div></div>
+          <div class="cd-unit"><div class="n alt" data-cd-hours>--</div><div class="l">hrs</div></div>
+          <div class="cd-unit"><div class="n alt" data-cd-mins>--</div><div class="l">min</div></div>
+          <div class="cd-unit"><div class="n blue" data-cd-secs>--</div><div class="l">seg</div></div>
+        </div>
+      </div>
+      <div class="turma-card presencial" data-reveal data-turma data-start="2026-12-10T08:00:00-03:00" data-end="2026-12-11T23:59:59-03:00" data-hero-date="10 e 11 de dezembro · 2026" data-hero-time="2 dias intensivos" data-hero-mode="Presencial · Salvador/BA">
+        <div class="turma-name">Dezembro · Presencial</div>
+        <div class="turma-date">10 e 11/12</div>
+        <div class="turma-type">Presencial — Salvador/BA</div>
+        <div class="cd-label">Faltam para o início</div>
+        <div class="countdown" data-countdown="2026-12-10T08:00:00-03:00">
           <div class="cd-unit"><div class="n" data-cd-days>--</div><div class="l">dias</div></div>
           <div class="cd-unit"><div class="n alt" data-cd-hours>--</div><div class="l">hrs</div></div>
           <div class="cd-unit"><div class="n alt" data-cd-mins>--</div><div class="l">min</div></div>
@@ -817,6 +777,54 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script src="/assets/js/lead-form.js?v=2026-09-22"></script>
 <script>
 (function(){
+  // Turmas: datas vencidas nunca aparecem. Cada card tem data-start/data-end.
+  // Remove as que já terminaram e usa a primeira restante (a próxima ou a que
+  // está em andamento) no banner principal.
+  function applyTurmas(){
+    var now = Date.now();
+    var cards = Array.prototype.slice.call(document.querySelectorAll('[data-turma]'));
+    var upcoming = [];
+    cards.forEach(function(c){
+      var end = new Date(c.getAttribute('data-end')).getTime();
+      if (end < now) { c.parentNode.removeChild(c); return; }
+      upcoming.push(c);
+    });
+    upcoming.sort(function(a, b){
+      return new Date(a.getAttribute('data-start')) - new Date(b.getAttribute('data-start'));
+    });
+    upcoming.forEach(function(c){ c.parentNode.appendChild(c); });
+    // Turma já iniciada (em andamento): troca a contagem por um aviso.
+    upcoming.forEach(function(c){
+      if (new Date(c.getAttribute('data-start')).getTime() <= now) {
+        var lbl = c.querySelector('.cd-label'); if (lbl) lbl.textContent = 'Turma em andamento';
+        var cdb = c.querySelector('.countdown'); if (cdb) cdb.style.display = 'none';
+      }
+    });
+
+    var next = upcoming[0];
+    var pill = document.querySelector('[data-hero-pill]');
+    var badges = document.querySelector('.hero-badges');
+    if (!next) {
+      // Sem turmas abertas: esconde banner de data e contagem.
+      if (pill) pill.style.display = 'none';
+      if (badges) badges.style.display = 'none';
+      var datas = document.getElementById('datas');
+      if (datas) datas.style.display = 'none';
+      return;
+    }
+    function setText(sel, v){ var el = document.querySelector(sel); if (el) el.textContent = v; }
+    setText('[data-hero-date]', next.getAttribute('data-hero-date'));
+    setText('[data-hero-time]', next.getAttribute('data-hero-time'));
+    setText('[data-hero-mode]', next.getAttribute('data-hero-mode'));
+    var hc = document.querySelector('[data-hero-countdown]');
+    if (hc) hc.setAttribute('data-countdown', next.getAttribute('data-start'));
+    if (new Date(next.getAttribute('data-start')).getTime() <= now) {
+      var hl = document.querySelector('[data-hero-label]'); if (hl) hl.textContent = 'TURMA EM ANDAMENTO';
+      if (hc) hc.style.display = 'none';
+    }
+  }
+  applyTurmas();
+
   // Countdown
   function pad(n){ return String(n).padStart(2,'0'); }
   function tickAll(){
