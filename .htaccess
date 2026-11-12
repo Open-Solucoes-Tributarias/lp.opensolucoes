@@ -4,6 +4,12 @@ DirectorySlash Off
 RewriteEngine On
 RewriteBase /
 
+# 0. Atalhos usados pelo trafego pago (URLs curtas -> paginas reais)
+RewriteRule ^pdc-zfm/?$ /consultoria/zfm [R=301,L]
+RewriteRule ^consultoria-clinicas/?$ /consultoria/clinicas [R=301,L]
+RewriteRule ^curso/?$ /curso/reforma-tributaria [R=301,L]
+RewriteRule ^$ /curso/reforma-tributaria [R=302,L]
+
 # 1. Redirecionar URLs com barra final para versão sem barra (exceto raiz)
 # Ex: /congresso/ → /congresso
 RewriteCond %{REQUEST_URI} !^/$
