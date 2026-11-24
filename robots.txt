@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /consultoria/obrigado
+
+Sitemap: https://pagina.opensolucoestributarias.com.br/sitemap.xml
