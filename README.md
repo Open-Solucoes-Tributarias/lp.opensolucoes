@@ -94,3 +94,12 @@ Ao criar ou editar qualquer página neste repositório, certifique-se de seguir 
 
 *   [Documentação da Integração com o RD Station Marketing](DOCS_RD_STATION.md): Guia prático de como funciona o disparo de conversões via API 1.3, payload, identificadores e snippet para novas LPs.
 
+### Formulários das LPs
+
+*   **`assets/js/lead-form.js`** (`window.OpenLeadForms`): envio ao RD com retry, Pixel/CAPI da Meta, validação de e-mail e de telefone com DDD (`normalizePhone`), máscara do telefone. Usado por todas as páginas com formulário.
+*   **`assets/js/consultoria-form.js`** (`window.OpenConsultoriaForm.init({ identificador, formulario })`): formulário em 2 etapas das consultorias (`/consultoria`, `/consultoria/clinicas`, `/consultoria/zfm`). Botões com `data-open-modal` abrem o formulário na própria página.
+*   **Eventos do GTM** (`dataLayer`): `formulario_aberto` (`formulario`, `cta_local`) ao abrir o formulário por um botão; `lead_enviado` (`formulario`) depois que o RD aceita o lead.
+*   **E-mail para a equipe**: `enviar-lead.php` envia cada lead para os destinatários do `$DESTINOS` (chave = identificador do RD).
+*   **Cache**: os JS/CSS são servidos com cache de 7 dias. Ao alterá-los, atualize o `?v=` em todas as páginas que os carregam (`tests/asset-versioning.test.js`).
+*   **Testes**: `for f in tests/*.test.js; do node "$f"; done`
+

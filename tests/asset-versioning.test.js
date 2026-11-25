@@ -17,17 +17,32 @@ const PAGES = [
   'diagnostico-tributario-reforma-tributaria-assespro',
 ];
 
-const versions = new Set();
+// O formulario em 2 etapas das consultorias tem o mesmo cache.
+const CONSULTORIA_PAGES = ['consultoria', 'consultoria/clinicas', 'consultoria/zfm'];
 
-PAGES.forEach(function (dir) {
+function checkScript(file, pages) {
+  const versions = new Set();
+  const pattern = new RegExp('src="/assets/js/' + file.replace('.', '\\.') + '[^"]*"', 'g');
+
+  pages.forEach(function (dir) {
+    const html = fs.readFileSync(path.join(ROOT, dir, 'index.html'), 'utf8');
+    const refs = html.match(pattern) || [];
+    assert.strictEqual(refs.length, 1, dir + ': deve carregar ' + file + ' exatamente uma vez');
+    const match = refs[0].match(/\?v=([^"&]+)/);
+    assert.ok(match, dir + ': ' + file + ' deve ter ?v= no src para furar o cache de 7 dias');
+    versions.add(match[1]);
+  });
+
+  assert.strictEqual(versions.size, 1, 'todas as paginas devem usar a mesma versao do ' + file + ': ' + [...versions].join(', '));
+}
+
+checkScript('lead-form.js', PAGES);
+checkScript('consultoria-form.js', CONSULTORIA_PAGES);
+
+// O CSS das consultorias muda junto com o formulario (tela de sucesso, celular).
+CONSULTORIA_PAGES.forEach(function (dir) {
   const html = fs.readFileSync(path.join(ROOT, dir, 'index.html'), 'utf8');
-  const refs = html.match(/src="\/assets\/js\/lead-form\.js[^"]*"/g) || [];
-  assert.strictEqual(refs.length, 1, dir + ': deve carregar lead-form.js exatamente uma vez');
-  const match = refs[0].match(/\?v=([^"&]+)/);
-  assert.ok(match, dir + ': lead-form.js deve ter ?v= no src para furar o cache de 7 dias');
-  versions.add(match[1]);
+  assert.ok(/<link rel="stylesheet" href="assets\/style\.css\?v=[^"]+">/.test(html), dir + ': style.css deve ter ?v= para furar o cache');
 });
-
-assert.strictEqual(versions.size, 1, 'todas as paginas devem usar a mesma versao do lead-form.js: ' + [...versions].join(', '));
 
 console.log('asset-versioning tests passed');

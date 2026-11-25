@@ -58,9 +58,32 @@
     return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value);
   }
 
+  // DDDs em uso no Brasil (Anatel).
+  var VALID_DDDS = (
+    '11 12 13 14 15 16 17 18 19 21 22 24 27 28 31 32 33 34 35 37 38 ' +
+    '41 42 43 44 45 46 47 48 49 51 53 54 55 61 62 63 64 65 66 67 68 69 ' +
+    '71 73 74 75 77 79 81 82 83 84 85 86 87 88 89 91 92 93 94 95 96 97 98 99'
+  ).split(' ');
+  var PHONE_MAX_DIGITS = 15;
+
+  // Telefone / WhatsApp com DDD. Devolve DDD + numero so com digitos
+  // ("34992345623") ou null se for invalido. Aceita o codigo do pais (+55)
+  // na frente, sem confundir com o DDD 55 (RS).
+  function normalizePhone(value) {
+    var digits = String(value || '').replace(/\D/g, '');
+    if ((digits.length === 12 || digits.length === 13) && digits.indexOf('55') === 0) {
+      digits = digits.substring(2);
+    }
+    if (digits.length !== 10 && digits.length !== 11) return null;
+    if (VALID_DDDS.indexOf(digits.substring(0, 2)) === -1) return null;
+    var first = digits.charAt(2);
+    if (digits.length === 11 && first !== '9') return null; // celular
+    if (digits.length === 10 && '2345'.indexOf(first) === -1) return null; // fixo
+    return digits;
+  }
+
   function isValidPhone(value) {
-    var digits = value.replace(/\D/g, '');
-    return digits.length >= 10 && digits.length <= 11;
+    return normalizePhone(value) !== null;
   }
 
   function captureTrackingFields(form) {
@@ -92,7 +115,7 @@
       identificador: config.rdIdentifier,
       name: getValue(config.fields.name),
       email: getValue(config.fields.email),
-      mobile_phone: getValue(config.fields.phone),
+      mobile_phone: normalizePhone(getValue(config.fields.phone)) || getValue(config.fields.phone),
       cf_setor: getValue(config.fields.setor),
       cf_utm_source: getHiddenValue(form, 'utm_source'),
       cf_utm_medium: getHiddenValue(form, 'utm_medium'),
@@ -159,25 +182,38 @@
     });
   }
 
+  // (34) 99234-5623 / (34) 3234-5623
+  function formatNationalPhone(digits) {
+    if (digits.length <= 2) return digits;
+    var formatted = '(' + digits.substring(0, 2) + ') ';
+    if (digits.length <= 6) return formatted + digits.substring(2);
+    return formatted + (digits.length === 11
+      ? digits.substring(2, 7) + '-' + digits.substring(7)
+      : digits.substring(2, 6) + '-' + digits.substring(6));
+  }
+
+  // Mascara do campo. Nao corta digitos a mais: o visitante ve exatamente o
+  // que digitou e a validacao mostra o erro.
+  function formatPhone(value) {
+    var hasPlus = /^\s*\+/.test(value);
+    var digits = String(value || '').replace(/\D/g, '').substring(0, PHONE_MAX_DIGITS);
+    if ((digits.length === 12 || digits.length === 13) && digits.indexOf('55') === 0) {
+      return '+55 ' + formatNationalPhone(digits.substring(2));
+    }
+    // Quem comeca com "+" esta digitando o codigo do pais: mostra os digitos
+    // crus ate o numero ficar completo, sem formatar como DDD.
+    if (hasPlus || digits.length > 11) return (hasPlus ? '+' : '') + digits;
+    return formatNationalPhone(digits);
+  }
+
   function bindPhoneMask(phoneId) {
     var phoneInput = getElement(phoneId);
     if (!phoneInput) return;
     phoneInput.addEventListener('input', function(event) {
-      var value = event.target.value.replace(/\D/g, '');
-      if (value.length > 11) value = value.substring(0, 11);
-
-      var formatted = value;
-      if (value.length > 2) {
-        formatted = '(' + value.substring(0, 2) + ') ';
-        if (value.length > 6) {
-          formatted += value.length === 11
-            ? value.substring(2, 7) + '-' + value.substring(7)
-            : value.substring(2, 6) + '-' + value.substring(6);
-        } else {
-          formatted += value.substring(2);
-        }
-      }
-      event.target.value = formatted;
+      // Apagando: nao reformata, senao "(" ")" e "-" voltam e o cursor pula.
+      if (event.inputType && event.inputType.indexOf('delete') === 0) return;
+      var formatted = formatPhone(event.target.value);
+      if (formatted !== event.target.value) event.target.value = formatted;
     });
   }
 
@@ -336,11 +372,18 @@
 
   window.OpenLeadForms = {
     init: init,
-    // Usados pelas consultorias, que tem submit inline proprio.
+    // Usados pelo formulario em 2 etapas das consultorias
+    // (/assets/js/consultoria-form.js).
     postRdConversion: postRdConversion,
     errorBoxFor: errorBoxFor,
+    isValidEmail: isValidEmail,
+    isValidPhone: isValidPhone,
+    normalizePhone: normalizePhone,
+    bindPhoneMask: bindPhoneMask,
+    trackMetaLead: trackMetaLead,
     _test: {
       buildRdBody: buildRdBody,
+      formatPhone: formatPhone,
       captureTrackingFields: captureTrackingFields,
       shouldTrackLead: shouldTrackLead,
       validateForm: validateForm

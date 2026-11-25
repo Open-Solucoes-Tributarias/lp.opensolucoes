@@ -35,11 +35,45 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // === CONFIGURAÇÃO ===
-// Chave = identificador enviado pela LP; valor = destinatário(s) e assunto.
+// Chave = identificador enviado pela LP (campo "form").
+// to: destinatário · subject: assunto · titulo: cabeçalho do e-mail
+// obrigatorios: campos que precisam vir preenchidos (além de nome e e-mail)
+// campos: [rótulo, chave] exibidos depois de Nome, E-mail e WhatsApp
+// Leads das consultorias: comercial + Soraya (mail() aceita lista separada por virgula).
+$CONSULTORIA_TO = 'vendas@opentreinamentos.com.br, soraya.sa@opensolucoestributarias.com.br';
+$CONSULTORIA_CAMPOS = [
+    ['CNPJ', 'cnpj'],
+    ['Regime tributário', 'regime'],
+    ['Faturamento médio anual', 'faturamento'],
+];
 $DESTINOS = [
     'diagnostico-tributario-assespro' => [
-        'to'      => 'soraya.sa@opensolucoestributarias.com.br',
-        'subject' => 'Novo lead — Diagnóstico Tributário Assespro',
+        'to'           => 'soraya.sa@opensolucoestributarias.com.br',
+        'subject'      => 'Novo lead — Diagnóstico Tributário Assespro',
+        'titulo'       => 'Diagnóstico Tributário · Assespro',
+        'obrigatorios' => ['company', 'regime'],
+        'campos'       => [['Empresa', 'company'], ['Regime tributário', 'regime']],
+    ],
+    'consultoria-clinicas-landing-page' => [
+        'to'           => $CONSULTORIA_TO,
+        'subject'      => 'Novo lead — Consultoria para Clínicas',
+        'titulo'       => 'Consultoria · Clínicas',
+        'obrigatorios' => ['phone', 'cnpj', 'regime', 'faturamento'],
+        'campos'       => $CONSULTORIA_CAMPOS,
+    ],
+    'consultoria-gratuita-landing-page' => [
+        'to'           => $CONSULTORIA_TO,
+        'subject'      => 'Novo lead — Consultoria (Análise Gratuita)',
+        'titulo'       => 'Consultoria · Análise Gratuita',
+        'obrigatorios' => ['phone', 'cnpj', 'regime', 'faturamento'],
+        'campos'       => $CONSULTORIA_CAMPOS,
+    ],
+    'consultoria-zfm-landing-page' => [
+        'to'           => $CONSULTORIA_TO,
+        'subject'      => 'Novo lead — Consultoria Zona Franca de Manaus',
+        'titulo'       => 'Consultoria · Zona Franca de Manaus',
+        'obrigatorios' => ['phone', 'cnpj', 'regime', 'faturamento'],
+        'campos'       => $CONSULTORIA_CAMPOS,
     ],
 ];
 $REMETENTE = 'no-reply@opensolucoestributarias.com.br';
@@ -72,21 +106,32 @@ function limpar($valor, $max = 200) {
     return trim(mb_substr($valor, 0, $max, 'UTF-8'));
 }
 
-$nome    = limpar(isset($input['name']) ? $input['name'] : '');
-$email   = limpar(isset($input['email']) ? $input['email'] : '', 254);
-$empresa = limpar(isset($input['company']) ? $input['company'] : '');
-$regime  = limpar(isset($input['regime']) ? $input['regime'] : '');
-$fone    = limpar(isset($input['phone']) ? $input['phone'] : '', 30);
+$destino = $DESTINOS[$form];
 
-if (mb_strlen($nome, 'UTF-8') < 3 || !filter_var($email, FILTER_VALIDATE_EMAIL)
-    || $empresa === '' || $regime === '' || ($fone !== '' && strlen(preg_replace('/\D/', '', $fone)) < 10)) {
+$dados = [];
+foreach (['company' => 200, 'regime' => 200, 'cnpj' => 20, 'faturamento' => 200] as $chave => $max) {
+    $dados[$chave] = limpar(isset($input[$chave]) ? $input[$chave] : '', $max);
+}
+$nome  = limpar(isset($input['name']) ? $input['name'] : '');
+$email = limpar(isset($input['email']) ? $input['email'] : '', 254);
+$fone  = limpar(isset($input['phone']) ? $input['phone'] : '', 30);
+$dados['phone'] = $fone;
+
+$valido = mb_strlen($nome, 'UTF-8') >= 3 && filter_var($email, FILTER_VALIDATE_EMAIL)
+    && ($fone === '' || strlen(preg_replace('/\D/', '', $fone)) >= 10);
+foreach ($destino['obrigatorios'] as $chave) {
+    if ($dados[$chave] === '') {
+        $valido = false;
+    }
+}
+if (!$valido) {
     http_response_code(422);
     echo json_encode(['ok' => false, 'error' => 'Dados inválidos']);
     exit;
 }
 
 $origem = [];
-foreach (['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'] as $chave) {
+foreach (['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'placement', 'gclid', 'fbclid'] as $chave) {
     $valor = limpar(isset($input[$chave]) ? $input[$chave] : '');
     if ($valor !== '') {
         $origem[] = $chave . ': ' . $valor;
@@ -108,12 +153,15 @@ $campos = [
     ['Nome', $nome, null],
     ['E-mail', $email, 'mailto:' . $email],
     ['WhatsApp', $fone !== '' ? $fone : 'Não informado', $linkWhats !== '' ? $linkWhats : null],
-    ['Empresa', $empresa, null],
-    ['Regime tributário', $regime, null],
 ];
+foreach ($destino['campos'] as $campo) {
+    if ($dados[$campo[1]] !== '') {
+        $campos[] = [$campo[0], $dados[$campo[1]], null];
+    }
+}
 
 // --- Versão texto (fallback) ---
-$linhas = ['NOVO LEAD — Diagnóstico Tributário Assespro', str_repeat('-', 44)];
+$linhas = ['NOVO LEAD — ' . $destino['titulo'], str_repeat('-', 44)];
 foreach ($campos as $c) {
     $linhas[] = $c[0] . ': ' . $c[1];
 }
@@ -171,7 +219,7 @@ $html = '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta nam
     . '<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:14px;overflow:hidden;">'
     . '<tr><td style="background:#030D2F;padding:26px 32px;">'
     . '<div style="font-size:12px;letter-spacing:.14em;color:#68D0FA;font-weight:700;text-transform:uppercase;">Novo lead</div>'
-    . '<div style="font-size:22px;line-height:1.25;color:#ffffff;font-weight:700;margin-top:6px;">Diagnóstico Tributário · Assespro</div>'
+    . '<div style="font-size:22px;line-height:1.25;color:#ffffff;font-weight:700;margin-top:6px;">' . h($destino['titulo']) . '</div>'
     . '</td></tr>'
     . '<tr><td style="padding:28px 32px 8px;">'
     . '<p style="margin:0 0 14px;font-size:15px;color:#434351;line-height:1.5;"><strong>' . h($nome) . '</strong> preencheu o formulário e aguarda contato.</p>'
@@ -189,7 +237,6 @@ $html = '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta nam
     . '<div style="font-size:11px;color:#9aa0b4;margin-top:14px;">Open Soluções Tributárias</div>'
     . '</td></tr></table></body></html>';
 
-$destino = $DESTINOS[$form];
 $assunto = '=?UTF-8?B?' . base64_encode($destino['subject'] . ' — ' . $nome) . '?=';
 $limite = 'b' . md5(uniqid('', true));
 $cabecalhos = [

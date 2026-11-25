@@ -179,6 +179,7 @@ async function submitWithResponses(responses, instituicao) {
 
   assert.strictEqual(rdBody.cf_instituicao, 'Instituição/entidade pública');
   assert.strictEqual(rdBody.cf_setor, 'Financeiro');
+  assert.strictEqual(rdBody.mobile_phone, '71999999999', 'RD recebe so os digitos com DDD');
   assert.strictEqual(rdBody.cf_utm_source, 'facebook');
   assert.strictEqual(rdBody.cf_utm_medium, 'paid');
   assert.strictEqual(rdBody.cf_utm_campaign, 'congresso_2026');

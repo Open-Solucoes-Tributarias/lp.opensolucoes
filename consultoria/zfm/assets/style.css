@@ -1936,6 +1936,29 @@ a { color: inherit; text-decoration: none; }
   margin: 0;
 }
 
+/* Depois do envio: convite para o Instagram e botao Fechar */
+.form-success .success-social {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-medium-gray);
+}
+.form-success .success-social p {
+  margin: 0;
+  font-size: 15px;
+  color: var(--color-navy-blue);
+}
+.form-success .success-instagram {
+  width: 100%;
+  gap: 10px;
+}
+.form-success .success-instagram svg { margin: 0; }
+.form-success .success-close { justify-content: center; }
+.form-success .success-close:hover { transform: none; }
+
 /* === MULTI-STEP FORM === */
 .modal-stepper {
   max-width: 520px;
@@ -4072,3 +4095,110 @@ a { color: inherit; text-decoration: none; }
     transform: translateY(-1px);
   }
 }
+
+/* === FORMULARIO (MODAL) — telas baixas e celular ===
+   O formulario em 2 etapas pode ser mais alto que a tela: a janela rola por
+   dentro em vez de cortar o botao de envio. */
+.modal-overlay .modal-stepper {
+  max-height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* Aceite da LGPD: ".field label { display: block }" vencia o flex do
+   .lgpd-check e o quadradinho (span) aparecia como uma barra fina. */
+.field .lgpd-check { display: flex; }
+.lgpd-checkmark { display: inline-block; flex-shrink: 0; }
+
+/* Celular: o formulario ocupa a tela inteira (pedido do PDF, tela 4). O X fica
+   sempre no topo e o botao de avancar/enviar sempre embaixo. */
+@media (max-width: 600px) {
+  .modal-overlay {
+    padding: 0;
+    align-items: stretch;
+  }
+  .modal-overlay .modal-stepper {
+    max-width: none;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    max-height: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 16px 20px 0;
+    display: flex;
+    flex-direction: column;
+    -webkit-overflow-scrolling: touch;
+  }
+  .modal-overlay .modal-stepper .modal-close {
+    position: sticky;
+    top: 0;
+    align-self: flex-end;
+    flex-shrink: 0;
+    margin-bottom: -36px;
+    z-index: 2;
+  }
+  #modalFormWrapper {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+  #modalFormWrapper h3 { padding-right: 48px; }
+  /* Coluna flex: sem largura, os passos encolhiam e os rotulos grudavam. */
+  #modalFormWrapper .step-indicator,
+  #modalFormWrapper .step-labels { width: 100%; }
+  #rdForm {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+  #rdForm .form-step.active {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+  #btnNextStep,
+  #rdForm .step-actions {
+    position: sticky;
+    bottom: 0;
+    margin-top: auto;
+    z-index: 1;
+  }
+  /* Faixa branca atras do botao fixo, para os campos nao aparecerem por baixo. */
+  #btnNextStep { box-shadow: 0 0 0 16px var(--color-pure-white); margin-bottom: 16px; }
+  #rdForm .step-actions {
+    background: var(--color-pure-white);
+    padding: 12px 0 16px;
+  }
+  /* 16px: abaixo disso o iPhone da zoom ao tocar no campo. */
+  #rdForm .field input,
+  #rdForm .field select { font-size: 16px; }
+  .modal-stepper .form-success.show { margin: auto 0; padding-top: 44px; }
+}
+
+/* Header entre ~860px e 1180px: os 5 links + o botao nao cabiam e o botao
+   passava da borda direita. Menos espaco entre os itens nessa faixa. */
+@media (min-width: 861px) and (max-width: 1180px) {
+  .header-inner { gap: 20px; }
+  .nav-links { gap: 2px; }
+  .nav-links a { padding: 10px 10px; font-size: 15px; }
+  .btn-header { padding: 12px 20px; }
+}
+
+/* Abaixo de 1000px o menu completo nao cabe: usa o menu hamburguer (o mesmo
+   do celular), que antes so aparecia abaixo de 860px. */
+@media (max-width: 1000px) {
+  .nav-links { display: none; }
+  .hamburger-btn { display: flex; }
+  .nav-actions { display: flex; align-items: center; gap: 12px; }
+}
+
+/* Rodape sem saidas (PDF tela 8): so marca, razao social com CNPJ e politica
+   de privacidade. Uma coluna; o logo deixou de ser link. */
+.site-footer .footer-main {
+  grid-template-columns: 1fr;
+  gap: 16px;
+  padding-bottom: 32px;
+}
+.site-footer .footer-brand-col { grid-column: auto; }
+.site-footer span.footer-logo { display: inline-block; }
